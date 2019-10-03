@@ -27,7 +27,7 @@ html_document: newcommandault
 \newcommand\uC{{\bf C}}
 \newcommand\uD{{\bf D}}
 \newcommand\uE{{\bf E}}
-\newcommand\ue{{\bf ue}}
+\newcommand\ue{{\bf e}}
 \newcommand\uH{{\bf H}}
 \newcommand\uI{{\bf I}}
 \newcommand\uM{{\bf M}}
@@ -38,8 +38,6 @@ html_document: newcommandault
 \newcommand\uY{{\bf Y}}
 \newcommand\uy{{\bf y}}
 \newcommand\uz{{\bf z}}
-
-
 \newcommand\diag{{\rm diag}}
 
 # Bayesian Reduced Rank Regression
@@ -47,8 +45,8 @@ html_document: newcommandault
 ## Introduction
 
 In contemporary sociey, a big amount of data are generated and collected more easily and routinely in various academic and industrial areas, such as engineering, politics, B2C e-ccommerce, genomics, etc. Many problems could be cast into statistical problems under the framework of multivariate linear regression model, which is characterized by that both reponse variables and predictors are high dimensionality.
-	
-We assume $n$ independent observations of the response $\uy_i\in \mathcal{R}^q$ with predictor vector 
+
+We assume $n$ independent observations of the response $\uy_i\in \mathcal{R}^q$ with predictor vector
 $\ux_i\in\mathcal{R}^p$, $i=1,2,\ldots,n$. Cosider multivariate linear regression model as follows:
 \begin{eqnarray}
 	\uY=\uX\uC + \uE,
@@ -58,18 +56,18 @@ where $\uY=(\uy_1,\uy_2,\ldots,\uy_n)^{\T}\in\mathcal{R}^{n\times q}$ is the res
 
 ## Bayesian Rank Reduced Regression model
 
-We consider to decompose the coefficient matrix into two part as follows: 
+We consider to decompose the coefficient matrix into two part as follows:
 \begin{eqnarray}
 	 \uC=\uA\uB^{\T},
 \end{eqnarray}
-where $\uA\in\mathcal{R}^{p\times r}$, $\uB\in\mathcal{R}^{r\times q}$ and known $r\leq \min(p,q)$. 
-However, this decomposition is not unique, because with a $r\times r$ nonsingular matrix $\uQ, \uC=\uA\uB^{\T}=\uA\uQ\uQ^{-1}\uB^{\T}=\tilde{\uA}\tilde{\uB}^{\T}.$ 
+where $\uA\in\mathcal{R}^{p\times r}$, $\uB\in\mathcal{R}^{r\times q}$ and known $r\leq \min(p,q)$.
+However, this decomposition is not unique, because with a $r\times r$ nonsingular matrix $\uQ, \uC=\uA\uB^{\T}=\uA\uQ\uQ^{-1}\uB^{\T}=\tilde{\uA}\tilde{\uB}^{\T}.$
 In order to indentify it, we further decompose $\uA$. $\uA^{\T}=[\uI_r, {\uA^*}^{\T}]$. The author assumes that $p(\uA,\uB)\propto\exp\left(-\frac{\tau^2}{2} trace\{ \uA^{\T}\uA+\uB^{\T}\uB\}\right)$ and $\sigma^2\sim \mathcal{IG}(\frac{a}{2},\frac{b}{2})$.
-	 
+
 ### Posterior Distribution
 
-Let $\tilde{\ua}_k$ and $\tilde{\ub}_k$ denote the $k$th column of $\uA$ and $\uB$, respectively. Let ${\ua}_j^{\T}$ and ${\ub}_l^{\T}$ denote the $y$th row of $\uA$ and $l$th row of $\uB$, respectively. 
-	
+Let $\tilde{\ua}_k$ and $\tilde{\ub}_k$ denote the $k$th column of $\uA$ and $\uB$, respectively. Let ${\ua}_j^{\T}$ and ${\ub}_l^{\T}$ denote the $y$th row of $\uA$ and $l$th row of $\uB$, respectively.
+
 \begin{eqnarray*}
 	&&p(\uY|\uA,\uB,\uSigma_e)\\
 	&\propto& |\uSigma_e|^{-\frac{q}{2}}\exp\left(-\frac{1}{2}trace\{
@@ -109,7 +107,7 @@ Let $\tilde{\ua}_k$ and $\tilde{\ub}_k$ denote the $k$th column of $\uA$ and $\u
     &=& \exp\left\{-\frac{1}{2}\left(\ua_j^{\T}{\uSigma_j^{A}}^{-1} \ua_j-2\ua_j^{\T}{\uSigma_j^{A}}^{-1}\umu_j^{A}\right)\right\}\\
     &\propto& \exp\left\{-\frac{1}{2}\left((\ua_j-\umu_j^{A})^{\T}{\uSigma_j^{A}}^{-1}(\ua_j-\umu_j^{A}) \right)\right\},
 \end{eqnarray*}
-where $\uSigma_j^{A}={(\uB^{\T}\uB\tilde{\ux}_j^{\T}\tilde{\ux}_j\sigma^{-2} +\uI_r\tau^2)}^{-1}$ and 
+where $\uSigma_j^{A}={(\uB^{\T}\uB\tilde{\ux}_j^{\T}\tilde{\ux}_j\sigma^{-2} +\uI_r\tau^2)}^{-1}$ and
 $\umu_j^{A}={\uSigma_j^{A}}\uB^{\T}(\uY-\uX_{(\tilde{j})}\uA_{(j)} \uB^{\T})^{\T}\tilde{\ux}_j\sigma^{-2}$.
 
 Hence, $\ua_j|\uA_{(j)},\uB,\uSigma_e,\uY \sim \mathcal{N}_r(\umu_j^A,\uSigma_j^A)$.
@@ -149,8 +147,8 @@ Hence, $\ua_j|\uA_{(j)},\uB,\uSigma_e,\uY \sim \mathcal{N}_r(\umu_j^A,\uSigma_j^
 \end{eqnarray*}
 where $\uSigma_j^B= ((\uX\uA)^{\T}\uX\uA\sigma^{-2}+\uI_r\tau^2)^{-1}$ and $\umu_j^B={\uSigma_j^B}(\uX\uA)^{\T}\tilde{\uy}_l\sigma^{-2}$.
 
-Hence, $\ub_l|\uA,(\uB^{\T})_{(\tilde{l})},\uY,\uSigma_e\sim \mathcal{N}_r(\umu_j^B,\uSigma_j^B)$. 
- 
+Hence, $\ub_l|\uA,(\uB^{\T})_{(\tilde{l})},\uY,\uSigma_e\sim \mathcal{N}_r(\umu_j^B,\uSigma_j^B)$.
+
 We know that the element in $k$th row and $k$th column of $\uSigma_e$ is $\sigma^2, k=1,2,\ldots,q$.
 \begin{eqnarray*}
  &&p(\sigma^2|\uA,\uB,\uY,(\uSigma_e)_{(k)(\tilde{k})})\\
@@ -168,15 +166,15 @@ Hence, $\sigma^2|\uA,\uB,\uY,(\uSigma_e)_{(k)(\tilde{k})}\sim \mathcal{IG}\left(
 
 The algorithm is easy to construct. Begin with initial values $\uA^{(0)}, \uSigma^{(0)}$, then for t = 1,2,...
 
-- Step (1) Given $\uA_{(j)}^{(t-1)},\uB^{\T(t-1)}, {\sigma^2}^{(t-1)}$, draw $\ua_j^{(t)}$ from 
+- Step (1) Given $\uA_{(j)}^{(t-1)},\uB^{\T(t-1)}, {\sigma^2}^{(t-1)}$, draw $\ua_j^{(t)}$ from
 	$\mathcal{N}_r(\umu_j^A,\uSigma_j^A),j=r+1,r+2,\ldots,p$;
-- Step (2) Given $\uA^{(t)},\uB^{\T(t-1)}_{(\tilde{l})}, {\sigma^2}^{(t-1)}$, draw $\ub_l^{(t)}$ from 
+- Step (2) Given $\uA^{(t)},\uB^{\T(t-1)}_{(\tilde{l})}, {\sigma^2}^{(t-1)}$, draw $\ub_l^{(t)}$ from
 	$\mathcal{N}_r(\umu_j^B,\uSigma_j^B),l=1,2,\ldots,q$;
 - Step (3) Given $\uB^{(t)}, \uA^{(t)}$, draw ${\sigma^2}^{(t)}$ from $\mathcal{IG}\left(a^*,b^*\right)$.
 - Step (4) Repeat step (1) to step (3) until convergence.
 
 
-Note that, the step (1) samples the $\ua_j$ from $j=r+1$, because first part of $\uA$ is $\uI_r$, which is 
+Note that, the step (1) samples the $\ua_j$ from $j=r+1$, because first part of $\uA$ is $\uI_r$, which is
 known. Hence, step (1) samples the $\uA^*$ and then insert $\uI_r$ together to construct $\uA$.
 
 ## Model Selection
@@ -188,7 +186,7 @@ true and so analysis to this point is conditional.When r is unknown, the analysi
 	\frac{p(y|M_r)}{\sum_{r\in \mathcal{M}}p(y|M_r)},
 \]
 where $\mathcal{M}={1,2,\ldots,min(p,q)}$, and $p(M_r)=\frac{1}{card(\mathcal{M})}$.
-	
+
 Hence, as the prior of rank(model) is flat, $p(M_r|y)$ is only determined by marginal likelihood ($p(y|M_r)$). The model selection problem here is then converted to find out the rank which maximizes the marginal likelihood ($p(y|M_r)$). In order to calculate the $p(y|M_r)$, I used Laplace and Gelfand and Dey (GD) methods, and then compare with DIC.
 
 ### Laplace
@@ -202,7 +200,7 @@ where $(\hat\uA,\hat\uB,\hat\sigma^2)=\arg \max p(\uY|{\uA},{\uB},{\sigma^2},M)p
 
 Hence,
 \begin{eqnarray}
-&&\log p(\uY|M_r) \nonumber\\ 
+&&\log p(\uY|M_r) \nonumber\\
 &\approx& \log p(\uY|\hat{\utheta},M) + \log p(\hat\utheta|M) -\frac{1}{2}k_M\log nq +\frac{1}{2}|\uSigma_M|
 + \frac{k_M}{2}\log 2\pi\nonumber\\
 &=&-\frac{1}{2} \left(-2\log(p(\uY|\hat{\uA},\hat{\uB},\hat{\sigma^2},M)) + k_M \log nq\right)  +C\nonumber\\
@@ -233,13 +231,13 @@ Let $\utheta=(\uA,\uB,\sigma^2)$,
 	&=&nq\log(2\pi\sigma^2)+ \frac{1}{\sigma^2} trace\left\{(\uY-\uX\uC)^{\T}(\uY-\uX\uC) \right\}
 \end{eqnarray*}
 
-Then DIC can be computed by 
+Then DIC can be computed by
 \[
 DIC \approx 2T^{-1}\sum_{t=1}^{T}D(\utheta^{(t)})-D(T^{-1}\sum_{t=1}^{T}\utheta^{(t)}),
 \]
 where $\utheta^{(t)}$ is a MCMC sample generated from $p(\utheta|\uY)$.
 
-Note that $DIC=D(\bar{\utheta})+2P_D$, which is analogous to AIC. 
+Note that $DIC=D(\bar{\utheta})+2P_D$, which is analogous to AIC.
 
 ### Gelfand \& Dey (GD)
 
@@ -257,35 +255,35 @@ I use formular as follows:
 \end{eqnarray}
 where $g^{(t)}=g(\utheta), f^{(t)}=p(\uY|\utheta^{(t)})p(\utheta^{(t)}), c_t = \log g^{(t)}-\log f^{(t)}$.
 
-Note that when calculating $\log p(\uY|M)$, there is a computation problem in formula \@ref(eq:4), 
-$\exp (\log g^{(t)}-\log f^{(t)})$ goes to infinity, due to a very large magnitude of 
-$\log g^{(t)}-\log f^{(t)}$. To solve this problem, I used 
+Note that when calculating $\log p(\uY|M)$, there is a computation problem in formula \@ref(eq:4),
+$\exp (\log g^{(t)}-\log f^{(t)})$ goes to infinity, due to a very large magnitude of
+$\log g^{(t)}-\log f^{(t)}$. To solve this problem, I used
 $\log T - \left[c_1 + \log \left(\sum_{t=2}^{T} (c_t-c_{1})\right)\right]$ to calculate $\log p(\uY|M)$.
 
-## Simulation Study 
+## Simulation Study
 
-### Data Generation 
+### Data Generation
 In the simulation study, my goal is to find out the true model or true rank of coefficient matrix($\uC$) based on Laplace, DIC and GD method. I set $n=100,q=12,p=7$ and $\sigma^2=2$. The coefficient matrix is as follows:
 
 $$\uC=\left[ \begin{array}{@{}*{12}{c}@{}}
-1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\ 
-0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
-0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 & -3 & 4 & 2  & 2\\ 
-1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\ 
-0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
-0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
+1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\
+0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 & -3 & 4 & 2  & 2\\
+1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\
 0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 &-3  &4  & 2  & 2
 \end{array} \right]$$
-Hence, the true rank of $\uC$ is 3. 
+Hence, the true rank of $\uC$ is 3.
 
-Generate data based on the model from Eq.\@ref(eq:eq1). For the prior, 
+Generate data based on the model from Eq.\@ref(eq:eq1). For the prior,
 $p(\uA,\uB)\propto\exp\left(-\frac{\tau^2}{2} trace\{ \uA^{\T}\uA+\uB^{\T}\uB\}\right)$ and $\sigma^2\sim \mathcal{IG}(\frac{a}{2},\frac{b}{2})$, where $\tau=10^{-3}$ and $a=b=1$.
 
-After running the MCMC simulation, the result based on 1 replication is shown in Table \@ref(tab:table1). 
+After running the MCMC simulation, the result based on 1 replication is shown in Table \@ref(tab:table1).
 
 Table: (\#tab:table1) Model Selection among Laplace, DIC and GD Based on 1 Replication.
 
-|Method($\log$) | 1 | 2|**3**|  4  |  5  | 6 | 7 | 
+|Method($\log$) | 1 | 2|**3**|  4  |  5  | 6 | 7 |
 |:-----:|:----:|:----:|:-----:|:----:|:---:|:----:|:---:|
 |Laplace  | -3007 |-2535 |**-2223** |-2257 |-2285 |-2310 |-2329|
 |DIC |84300 |17779|**7302**|  7317|  7325|  7363|  7405|
@@ -298,30 +296,30 @@ MSE = \frac{trace\{(\hat \uC -\uC)^{\T}(\hat \uC -\uC)\}}{pq}.
 \]
 MSE indicates the goodness of fit in the reduced rank regression model. We can observe that the MSE is minimized when the rank is 3. This demonstrates that parameter estimation is good enough. For the Laplace, DIC and GD method, in this case, all of them select the true rank. Given rank$(\uC)=3$, the estimated $\uC$ is as follows:
 
-||||||||||||| 
+|||||||||||||
 |:---:|:-----:|:----:|:----:|:-----:|:-----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|1.07 | 0.17  | 0.01 | 2.34 | -0.89 | -0.12 | -0.11| -0.08| -0.07| 0.03 | 1.26 | -1.10| 
-|-0.02| 1.00  | 0.04 | -0.14| -0.17 | -2.83 | 2.10 | 0.10 | 0.03 | 0.03 | -1.04| 3.17 | 
-|0.13 | -0.03 | 0.99 | 0.18 | -0.02 | 0.08  | 0.00 | 3.06 | -2.85| 4.03 | 2.10 | 2.06 | 
-|0.94 | 0.14  | 0.03 | 2.05 | -0.78 | -0.08 | -0.11| -0.03| -0.10| 0.07 | 1.13 | -0.95| 
-|0.04 | 0.99  | 0.04 | -0.00| -0.21 | -2.79 | 2.05 | 0.10 | 0.01 | 0.04 | -0.95| 3.05 | 
-|0.12 | 1.05  | 0.00 | 0.18 | -0.29 | -2.93 | 2.14 | -0.02| 0.12 | -0.12| -0.98| 3.03 | 
+|1.07 | 0.17  | 0.01 | 2.34 | -0.89 | -0.12 | -0.11| -0.08| -0.07| 0.03 | 1.26 | -1.10|
+|-0.02| 1.00  | 0.04 | -0.14| -0.17 | -2.83 | 2.10 | 0.10 | 0.03 | 0.03 | -1.04| 3.17 |
+|0.13 | -0.03 | 0.99 | 0.18 | -0.02 | 0.08  | 0.00 | 3.06 | -2.85| 4.03 | 2.10 | 2.06 |
+|0.94 | 0.14  | 0.03 | 2.05 | -0.78 | -0.08 | -0.11| -0.03| -0.10| 0.07 | 1.13 | -0.95|
+|0.04 | 0.99  | 0.04 | -0.00| -0.21 | -2.79 | 2.05 | 0.10 | 0.01 | 0.04 | -0.95| 3.05 |
+|0.12 | 1.05  | 0.00 | 0.18 | -0.29 | -2.93 | 2.14 | -0.02| 0.12 | -0.12| -0.98| 3.03 |
 |0.08 | -0.01 | 0.98 | 0.08 | 0.01  | 0.03  | 0.04 | 3.03 | -2.81| 3.98 | 2.01 | 2.14 |
 
-In addition, when selected rank is larger than 3, the MSE is not worse than I expect. In 
-other words, the model based on larger model (larger rank in $\uC$), the overfiteed models still have a good 
-estimation for the $\uC$. The values of DIC, Laplace and GD are not far away from the value at true rank. 
+In addition, when selected rank is larger than 3, the MSE is not worse than I expect. In
+other words, the model based on larger model (larger rank in $\uC$), the overfiteed models still have a good
+estimation for the $\uC$. The values of DIC, Laplace and GD are not far away from the value at true rank.
 This is very reasonable for overfitted model. But when selected rank smaller than true rank,
-the MSE increase significantly, and the corresponding values of DIC, Laplace and GD are far away from the value at true rank. This means the model miss some important variables. The analysis is based on one replication. 
+the MSE increase significantly, and the corresponding values of DIC, Laplace and GD are far away from the value at true rank. This means the model miss some important variables. The analysis is based on one replication.
 
-In Table \@ref(tab:table2), the result is based on 1000 replication. I want to see the perfermance of methods for model selection. In 
+In Table \@ref(tab:table2), the result is based on 1000 replication. I want to see the perfermance of methods for model selection. In
 Table \@ref(tab:table2), Laplace and GD always select true rank, however, the DIC tends to select larger model, because the average of
  selected rank in DIC is about 3.5, whereas, that of Laplace and GD are 3. Besides, for the successful probability of selecting true
   rank, the Laplace and GD, of course, is 100\%, but is 61.7\% for DIC. This makes sense because Laplace and GD are approximated and exact calculation for marginal likehihood, respectively. They work well in model fitting. The DIC is analogous to AIC, which tends to select larger model and better for short-term prediction.
-  
+
 Table: (\#tab:table2) Comparison among Laplace, DIC, GD Based on 1000 Replication.
 
-| Method  | Mean of Selected rank   | Selection Probabiliy  | 
+| Method  | Mean of Selected rank   | Selection Probabiliy  |
 |:-------:|:-----------------------:|:---------------------:|
 |Laplace  | 3                       |1                    |
 |DIC      | 3.525                   |0.617                |
@@ -359,7 +357,7 @@ for (i in 1:reptn) {
   t1=Sys.time()
   set.seed(2144+i+125*v)
   X <- matrix(rnorm(n*p,0,1),n,p)
-  E <- rmvnorm(n, rep(0,q), true.SIGe, method="chol") 
+  E <- rmvnorm(n, rep(0,q), true.SIGe, method="chol")
   Y=X%*%C+E
   ## Reduced Rank Regression model ##
   for (r in 1:p) {
@@ -379,7 +377,7 @@ for (i in 1:reptn) {
     } else {
       hat.A <- rbind(diag(1,r),hat.C[(r+1):p,]%*%hat.B%*%solve(crossprod(hat.B)))
     }
-    
+
     hat.sig2 <- mean(diag(tcrossprod(Y-X%*%hat.A%*%t(hat.B))))  #true.sig2
     ## MCMC ##
     for (jin in 1:MC.size) {
@@ -432,4 +430,3 @@ for (i in 1:reptn) {
 data.frame(hat.rank=mean(hat.rank),TPR.DIC=mean(TPR.DIC),TPR.ERR=mean(TPR.error))
 save(list = ls(), file = paste0('DIC-',v,'.RData'))
 ```
-

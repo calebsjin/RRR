@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics</title>
-  <meta name="description" content="Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
+  <title>2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics</title>
+  <meta name="description" content="2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
   <meta name="generator" content="bookdown 0.13.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
+  <meta property="og:title" content="2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
+  <meta name="twitter:title" content="2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
   
   
   
@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="bayesian-reduced-rank-regression" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Bayesian Reduced Rank Regression</h1>
+<h1><span class="header-section-number">2</span> Bayesian Reduced Rank Regression</h1>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">2.1</span> Introduction</h2>
 <p>In contemporary sociey, a big amount of data are generated and collected more easily and routinely in various academic and industrial areas, such as engineering, politics, B2C e-ccommerce, genomics, etc. Many problems could be cast into statistical problems under the framework of multivariate linear regression model, which is characterized by that both reponse variables and predictors are high dimensionality.</p>
@@ -179,7 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     {\bf Y}={\bf X}{\bf C}+ {\bf E},
     \tag{2.1}
     \end{eqnarray}\]</span>
-where <span class="math inline">\({\bf Y}=({\bf y}_1,{\bf y}_2,\ldots,{\bf y}_n)^{{\top}}\in\mathcal{R}^{n\times q}\)</span> is the response matrix, <span class="math inline">\({\bf X}=({\bf x}_1,{\bf x}_2,\ldots,{\bf x}_n)^{{\top}}\in\mathcal{R}^{n\times p}\)</span> is the design matrix, <span class="math inline">\({\bf C}\in\mathcal{R}^{p\times q}\)</span> is the coefficient matrix, and <span class="math inline">\({\bf E}=({\bf ue}_1,{\bf ue}_2,\ldots,{\bf ue}_n)^{{\top}}\in\mathcal{R}^{n\times q}\)</span> is the disturbance matrix with <span class="math inline">\({\bf ue}_i\)</span>’s <span class="math inline">\(\overset{iid}{\sim}\mathcal{N}_q({\bf 0},{\boldsymbol \Sigma}_e)\)</span>. We assume <span class="math inline">\({\boldsymbol \Sigma}_e=\sigma^2{\bf I}_q\)</span>. Therefore, we have <span class="math inline">\({\bf Y}\sim\mathcal{MN}({\bf X}{\bf C},{\boldsymbol \Sigma}_e,{\bf I}_n)\)</span>.</p>
+where <span class="math inline">\({\bf Y}=({\bf y}_1,{\bf y}_2,\ldots,{\bf y}_n)^{{\top}}\in\mathcal{R}^{n\times q}\)</span> is the response matrix, <span class="math inline">\({\bf X}=({\bf x}_1,{\bf x}_2,\ldots,{\bf x}_n)^{{\top}}\in\mathcal{R}^{n\times p}\)</span> is the design matrix, <span class="math inline">\({\bf C}\in\mathcal{R}^{p\times q}\)</span> is the coefficient matrix, and <span class="math inline">\({\bf E}=({\bf e}_1,{\bf e}_2,\ldots,{\bf e}_n)^{{\top}}\in\mathcal{R}^{n\times q}\)</span> is the disturbance matrix with <span class="math inline">\({\bf e}_i\)</span>’s <span class="math inline">\(\overset{iid}{\sim}\mathcal{N}_q({\bf 0},{\boldsymbol \Sigma}_e)\)</span>. We assume <span class="math inline">\({\boldsymbol \Sigma}_e=\sigma^2{\bf I}_q\)</span>. Therefore, we have <span class="math inline">\({\bf Y}\sim\mathcal{MN}({\bf X}{\bf C},{\boldsymbol \Sigma}_e,{\bf I}_n)\)</span>.</p>
 </div>
 <div id="bayesian-rank-reduced-regression-model" class="section level2">
 <h2><span class="header-section-number">2.2</span> Bayesian Rank Reduced Regression model</h2>
@@ -317,7 +317,7 @@ where <span class="math inline">\(\mathcal{M}={1,2,\ldots,min(p,q)}\)</span>, an
 where <span class="math inline">\((\hat{\bf A},\hat{\bf B},\hat\sigma^2)=\arg \max p({\bf Y}|{{\bf A}},{{\bf B}},{\sigma^2},M)p({\bf A},{\bf B},\sigma^2|M)\)</span>.</p>
 <p>Hence,
 <span class="math display" id="eq:eq3">\[\begin{eqnarray}
-&amp;&amp;\log p({\bf Y}|M_r) \nonumber\\ 
+&amp;&amp;\log p({\bf Y}|M_r) \nonumber\\
 &amp;\approx&amp; \log p({\bf Y}|\hat{{\boldsymbol \theta}},M) + \log p(\hat{\boldsymbol \theta}|M) -\frac{1}{2}k_M\log nq +\frac{1}{2}|{\boldsymbol \Sigma}_M|
 + \frac{k_M}{2}\log 2\pi\nonumber\\
 &amp;=&amp;-\frac{1}{2} \left(-2\log(p({\bf Y}|\hat{{\bf A}},\hat{{\bf B}},\hat{\sigma^2},M)) + k_M \log nq\right)  +C\nonumber\\
@@ -379,12 +379,12 @@ where <span class="math inline">\(g^{(t)}=g({\boldsymbol \theta}), f^{(t)}=p({\b
 <h3><span class="header-section-number">2.4.1</span> Data Generation</h3>
 <p>In the simulation study, my goal is to find out the true model or true rank of coefficient matrix(<span class="math inline">\({\bf C}\)</span>) based on Laplace, DIC and GD method. I set <span class="math inline">\(n=100,q=12,p=7\)</span> and <span class="math inline">\(\sigma^2=2\)</span>. The coefficient matrix is as follows:</p>
 <p><span class="math display">\[{\bf C}=\left[ \begin{array}{@{}*{12}{c}@{}}
-1 &amp; 0 &amp; 0 &amp; 2 &amp; -1 &amp; 0  &amp; 0 &amp; 0 &amp; 0  &amp; 0 &amp; 1  &amp; -1\\ 
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\ 
-0 &amp; 0 &amp; 1 &amp; 0 &amp; 0  &amp; 0  &amp; 0 &amp; 3 &amp; -3 &amp; 4 &amp; 2  &amp; 2\\ 
-1 &amp; 0 &amp; 0 &amp; 2 &amp; -1 &amp; 0  &amp; 0 &amp; 0 &amp; 0  &amp; 0 &amp; 1  &amp; -1\\ 
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\ 
-0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\ 
+1 &amp; 0 &amp; 0 &amp; 2 &amp; -1 &amp; 0  &amp; 0 &amp; 0 &amp; 0  &amp; 0 &amp; 1  &amp; -1\\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0  &amp; 0  &amp; 0 &amp; 3 &amp; -3 &amp; 4 &amp; 2  &amp; 2\\
+1 &amp; 0 &amp; 0 &amp; 2 &amp; -1 &amp; 0  &amp; 0 &amp; 0 &amp; 0  &amp; 0 &amp; 1  &amp; -1\\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\
 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0  &amp; 0  &amp; 0 &amp; 3 &amp;-3  &amp;4  &amp; 2  &amp; 2
 \end{array} \right]\]</span>
 Hence, the true rank of <span class="math inline">\({\bf C}\)</span> is 3.</p>
@@ -623,7 +623,7 @@ rank, the Laplace and GD, of course, is 100%, but is 61.7% for DIC. This makes s
 <a class="sourceLine" id="cb1-27" title="27">  t1=<span class="kw">Sys.time</span>()</a>
 <a class="sourceLine" id="cb1-28" title="28">  <span class="kw">set.seed</span>(<span class="dv">2144</span><span class="op">+</span>i<span class="op">+</span><span class="dv">125</span><span class="op">*</span>v)</a>
 <a class="sourceLine" id="cb1-29" title="29">  X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p,<span class="dv">0</span>,<span class="dv">1</span>),n,p)</a>
-<a class="sourceLine" id="cb1-30" title="30">  E &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(n, <span class="kw">rep</span>(<span class="dv">0</span>,q), true.SIGe, <span class="dt">method=</span><span class="st">&quot;chol&quot;</span>) </a>
+<a class="sourceLine" id="cb1-30" title="30">  E &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(n, <span class="kw">rep</span>(<span class="dv">0</span>,q), true.SIGe, <span class="dt">method=</span><span class="st">&quot;chol&quot;</span>)</a>
 <a class="sourceLine" id="cb1-31" title="31">  Y=X<span class="op">%*%</span>C<span class="op">+</span>E</a>
 <a class="sourceLine" id="cb1-32" title="32">  <span class="co">## Reduced Rank Regression model ##</span></a>
 <a class="sourceLine" id="cb1-33" title="33">  <span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
@@ -643,7 +643,7 @@ rank, the Laplace and GD, of course, is 100%, but is 61.7% for DIC. This makes s
 <a class="sourceLine" id="cb1-47" title="47">    } <span class="cf">else</span> {</a>
 <a class="sourceLine" id="cb1-48" title="48">      hat.A &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">diag</span>(<span class="dv">1</span>,r),hat.C[(r<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>p,]<span class="op">%*%</span>hat.B<span class="op">%*%</span><span class="kw">solve</span>(<span class="kw">crossprod</span>(hat.B)))</a>
 <a class="sourceLine" id="cb1-49" title="49">    }</a>
-<a class="sourceLine" id="cb1-50" title="50">    </a>
+<a class="sourceLine" id="cb1-50" title="50"></a>
 <a class="sourceLine" id="cb1-51" title="51">    hat.sig2 &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">diag</span>(<span class="kw">tcrossprod</span>(Y<span class="op">-</span>X<span class="op">%*%</span>hat.A<span class="op">%*%</span><span class="kw">t</span>(hat.B))))  <span class="co">#true.sig2</span></a>
 <a class="sourceLine" id="cb1-52" title="52">    <span class="co">## MCMC ##</span></a>
 <a class="sourceLine" id="cb1-53" title="53">    <span class="cf">for</span> (jin <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>MC.size) {</a>

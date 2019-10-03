@@ -156,7 +156,7 @@ I am \href{https://www.sjin.name/}{Caleb Jin}. After I read this paper, \textbf{
 \newcommand\uC{{\bf C}}
 \newcommand\uD{{\bf D}}
 \newcommand\uE{{\bf E}}
-\newcommand\ue{{\bf ue}}
+\newcommand\ue{{\bf e}}
 \newcommand\uH{{\bf H}}
 \newcommand\uI{{\bf I}}
 \newcommand\uM{{\bf M}}
@@ -167,7 +167,6 @@ I am \href{https://www.sjin.name/}{Caleb Jin}. After I read this paper, \textbf{
 \newcommand\uY{{\bf Y}}
 \newcommand\uy{{\bf y}}
 \newcommand\uz{{\bf z}}
-
 \newcommand\diag{{\rm diag}}
 
 \hypertarget{bayesian-reduced-rank-regression}{%
@@ -184,7 +183,7 @@ We assume \(n\) independent observations of the response \({\bf y}_i\in \mathcal
     {\bf Y}={\bf X}{\bf C}+ {\bf E},
     \label{eq:eq1}
     \end{eqnarray}
-where \({\bf Y}=({\bf y}_1,{\bf y}_2,\ldots,{\bf y}_n)^{{\top}}\in\mathcal{R}^{n\times q}\) is the response matrix, \({\bf X}=({\bf x}_1,{\bf x}_2,\ldots,{\bf x}_n)^{{\top}}\in\mathcal{R}^{n\times p}\) is the design matrix, \({\bf C}\in\mathcal{R}^{p\times q}\) is the coefficient matrix, and \({\bf E}=({\bf ue}_1,{\bf ue}_2,\ldots,{\bf ue}_n)^{{\top}}\in\mathcal{R}^{n\times q}\) is the disturbance matrix with \({\bf ue}_i\)'s \(\overset{iid}{\sim}\mathcal{N}_q({\bf 0},{\boldsymbol \Sigma}_e)\). We assume \({\boldsymbol \Sigma}_e=\sigma^2{\bf I}_q\). Therefore, we have \({\bf Y}\sim\mathcal{MN}({\bf X}{\bf C},{\boldsymbol \Sigma}_e,{\bf I}_n)\).
+where \({\bf Y}=({\bf y}_1,{\bf y}_2,\ldots,{\bf y}_n)^{{\top}}\in\mathcal{R}^{n\times q}\) is the response matrix, \({\bf X}=({\bf x}_1,{\bf x}_2,\ldots,{\bf x}_n)^{{\top}}\in\mathcal{R}^{n\times p}\) is the design matrix, \({\bf C}\in\mathcal{R}^{p\times q}\) is the coefficient matrix, and \({\bf E}=({\bf e}_1,{\bf e}_2,\ldots,{\bf e}_n)^{{\top}}\in\mathcal{R}^{n\times q}\) is the disturbance matrix with \({\bf e}_i\)'s \(\overset{iid}{\sim}\mathcal{N}_q({\bf 0},{\boldsymbol \Sigma}_e)\). We assume \({\boldsymbol \Sigma}_e=\sigma^2{\bf I}_q\). Therefore, we have \({\bf Y}\sim\mathcal{MN}({\bf X}{\bf C},{\boldsymbol \Sigma}_e,{\bf I}_n)\).
 
 \hypertarget{bayesian-rank-reduced-regression-model}{%
 \section{Bayesian Rank Reduced Regression model}\label{bayesian-rank-reduced-regression-model}}
@@ -343,7 +342,7 @@ where \((\hat{\bf A},\hat{\bf B},\hat\sigma^2)=\arg \max p({\bf Y}|{{\bf A}},{{\
 
 Hence,
 \begin{eqnarray}
-&&\log p({\bf Y}|M_r) \nonumber\\ 
+&&\log p({\bf Y}|M_r) \nonumber\\
 &\approx& \log p({\bf Y}|\hat{{\boldsymbol \theta}},M) + \log p(\hat{\boldsymbol \theta}|M) -\frac{1}{2}k_M\log nq +\frac{1}{2}|{\boldsymbol \Sigma}_M|
 + \frac{k_M}{2}\log 2\pi\nonumber\\
 &=&-\frac{1}{2} \left(-2\log(p({\bf Y}|\hat{{\bf A}},\hat{{\bf B}},\hat{\sigma^2},M)) + k_M \log nq\right)  +C\nonumber\\
@@ -420,12 +419,12 @@ Note that when calculating \(\log p({\bf Y}|M)\), there is a computation problem
 In the simulation study, my goal is to find out the true model or true rank of coefficient matrix(\({\bf C}\)) based on Laplace, DIC and GD method. I set \(n=100,q=12,p=7\) and \(\sigma^2=2\). The coefficient matrix is as follows:
 
 \[{\bf C}=\left[ \begin{array}{@{}*{12}{c}@{}}
-1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\ 
-0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
-0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 & -3 & 4 & 2  & 2\\ 
-1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\ 
-0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
-0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
+1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\
+0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 & -3 & 4 & 2  & 2\\
+1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\
 0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 &-3  &4  & 2  & 2
 \end{array} \right]\]
 Hence, the true rank of \({\bf C}\) is 3.
@@ -532,7 +531,7 @@ GD & 3 & 1\tabularnewline
 \NormalTok{  t1=}\KeywordTok{Sys.time}\NormalTok{()}
   \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2144}\OperatorTok{+}\NormalTok{i}\OperatorTok{+}\DecValTok{125}\OperatorTok{*}\NormalTok{v)}
 \NormalTok{  X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),n,p)}
-\NormalTok{  E <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(n, }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,q), true.SIGe, }\DataTypeTok{method=}\StringTok{"chol"}\NormalTok{) }
+\NormalTok{  E <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(n, }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,q), true.SIGe, }\DataTypeTok{method=}\StringTok{"chol"}\NormalTok{)}
 \NormalTok{  Y=X}\OperatorTok{%*%}\NormalTok{C}\OperatorTok{+}\NormalTok{E}
   \CommentTok{## Reduced Rank Regression model ##}
   \ControlFlowTok{for}\NormalTok{ (r }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{p) \{}
@@ -552,7 +551,7 @@ GD & 3 & 1\tabularnewline
 \NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
 \NormalTok{      hat.A <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\DecValTok{1}\NormalTok{,r),hat.C[(r}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{p,]}\OperatorTok{%*%}\NormalTok{hat.B}\OperatorTok{%*%}\KeywordTok{solve}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(hat.B)))}
 \NormalTok{    \}}
-    
+
 \NormalTok{    hat.sig2 <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{tcrossprod}\NormalTok{(Y}\OperatorTok{-}\NormalTok{X}\OperatorTok{%*%}\NormalTok{hat.A}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(hat.B))))  }\CommentTok{#true.sig2}
     \CommentTok{## MCMC ##}
     \ControlFlowTok{for}\NormalTok{ (jin }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{MC.size) \{}
