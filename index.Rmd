@@ -1,0 +1,15 @@
+---
+title: "Bayesian reduced rank regression in econometrics"
+author: "Caleb Jin"
+date: "5-9-2018"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: ""
+---
+
+# Foreword
+
+I am [Caleb Jin](https://www.sjin.name/). After I read this paper, **[Bayesian reduced rank regression in econometrics](https://www.sciencedirect.com/science/article/pii/0304407695017739)**[@Geweke], I write down the nodes of the key idea and R code to realize it.

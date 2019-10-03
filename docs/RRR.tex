@@ -1,0 +1,613 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Bayesian reduced rank regression in econometrics},
+            pdfauthor={Caleb Jin},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Bayesian reduced rank regression in econometrics}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Caleb Jin}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{5-9-2018}
+
+\usepackage{booktabs}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{foreword}{%
+\chapter{Foreword}\label{foreword}}
+
+I am \href{https://www.sjin.name/}{Caleb Jin}. After I read this paper, \textbf{\href{https://www.sciencedirect.com/science/article/pii/0304407695017739}{Bayesian reduced rank regression in econometrics}}\citep{Geweke}, I write down the nodes of the key idea and R code to realize it.
+
+\newcommand\T{{\top}}
+\newcommand\ubeta{{\boldsymbol \beta}}
+\newcommand\uSigma{{\boldsymbol \Sigma}}
+\newcommand\uepsilon{{\boldsymbol \epsilon}}
+\newcommand\umu{{\boldsymbol \mu}}
+\newcommand\utheta{{\boldsymbol \theta}}
+\newcommand\bg{{\boldsymbol \gamma}}
+\newcommand\uphi{{\boldsymbol \phi}}
+\newcommand\0{{\bf 0}}
+\newcommand\uA{{\bf A}}
+\newcommand\ua{{\bf a}}
+\newcommand\uB{{\bf B}}
+\newcommand\ub{{\bf b}}
+\newcommand\uC{{\bf C}}
+\newcommand\uD{{\bf D}}
+\newcommand\uE{{\bf E}}
+\newcommand\ue{{\bf ue}}
+\newcommand\uH{{\bf H}}
+\newcommand\uI{{\bf I}}
+\newcommand\uM{{\bf M}}
+\newcommand\uQ{{\bf Q}}
+\newcommand\uV{{\bf V}}
+\newcommand\uX{{\bf X}}
+\newcommand\ux{{\bf x}}
+\newcommand\uY{{\bf Y}}
+\newcommand\uy{{\bf y}}
+\newcommand\uz{{\bf z}}
+
+\newcommand\diag{{\rm diag}}
+
+\hypertarget{bayesian-reduced-rank-regression}{%
+\chapter{Bayesian Reduced Rank Regression}\label{bayesian-reduced-rank-regression}}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+In contemporary sociey, a big amount of data are generated and collected more easily and routinely in various academic and industrial areas, such as engineering, politics, B2C e-ccommerce, genomics, etc. Many problems could be cast into statistical problems under the framework of multivariate linear regression model, which is characterized by that both reponse variables and predictors are high dimensionality.
+
+We assume \(n\) independent observations of the response \({\bf y}_i\in \mathcal{R}^q\) with predictor vector
+\({\bf x}_i\in\mathcal{R}^p\), \(i=1,2,\ldots,n\). Cosider multivariate linear regression model as follows:
+\begin{eqnarray}
+    {\bf Y}={\bf X}{\bf C}+ {\bf E},
+    \label{eq:eq1}
+    \end{eqnarray}
+where \({\bf Y}=({\bf y}_1,{\bf y}_2,\ldots,{\bf y}_n)^{{\top}}\in\mathcal{R}^{n\times q}\) is the response matrix, \({\bf X}=({\bf x}_1,{\bf x}_2,\ldots,{\bf x}_n)^{{\top}}\in\mathcal{R}^{n\times p}\) is the design matrix, \({\bf C}\in\mathcal{R}^{p\times q}\) is the coefficient matrix, and \({\bf E}=({\bf ue}_1,{\bf ue}_2,\ldots,{\bf ue}_n)^{{\top}}\in\mathcal{R}^{n\times q}\) is the disturbance matrix with \({\bf ue}_i\)'s \(\overset{iid}{\sim}\mathcal{N}_q({\bf 0},{\boldsymbol \Sigma}_e)\). We assume \({\boldsymbol \Sigma}_e=\sigma^2{\bf I}_q\). Therefore, we have \({\bf Y}\sim\mathcal{MN}({\bf X}{\bf C},{\boldsymbol \Sigma}_e,{\bf I}_n)\).
+
+\hypertarget{bayesian-rank-reduced-regression-model}{%
+\section{Bayesian Rank Reduced Regression model}\label{bayesian-rank-reduced-regression-model}}
+
+We consider to decompose the coefficient matrix into two part as follows:
+\begin{eqnarray}
+     {\bf C}={\bf A}{\bf B}^{{\top}},
+\end{eqnarray}
+where \({\bf A}\in\mathcal{R}^{p\times r}\), \({\bf B}\in\mathcal{R}^{r\times q}\) and known \(r\leq \min(p,q)\).
+However, this decomposition is not unique, because with a \(r\times r\) nonsingular matrix \({\bf Q}, {\bf C}={\bf A}{\bf B}^{{\top}}={\bf A}{\bf Q}{\bf Q}^{-1}{\bf B}^{{\top}}=\tilde{{\bf A}}\tilde{{\bf B}}^{{\top}}.\)
+In order to indentify it, we further decompose \({\bf A}\). \({\bf A}^{{\top}}=[{\bf I}_r, {{\bf A}^*}^{{\top}}]\). The author assumes that \(p({\bf A},{\bf B})\propto\exp\left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right)\) and \(\sigma^2\sim \mathcal{IG}(\frac{a}{2},\frac{b}{2})\).
+
+\hypertarget{posterior-distribution}{%
+\subsection{Posterior Distribution}\label{posterior-distribution}}
+
+Let \(\tilde{{\bf a}}_k\) and \(\tilde{{\bf b}}_k\) denote the \(k\)th column of \({\bf A}\) and \({\bf B}\), respectively. Let \({{\bf a}}_j^{{\top}}\) and \({{\bf b}}_l^{{\top}}\) denote the \(y\)th row of \({\bf A}\) and \(l\)th row of \({\bf B}\), respectively.
+
+\begin{eqnarray*}
+    &&p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)\\
+    &\propto& |{\boldsymbol \Sigma}_e|^{-\frac{q}{2}}\exp\left(-\frac{1}{2}trace\{
+    ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}{\boldsymbol \Sigma}_e^{-1}\}\right)\\
+    &=& (\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{
+    ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+    &=&(\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})
+    ({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+    &\times&\exp\left(-\frac{1}{2\sigma^2}trace\{(\tilde{{\bf x}}_j{\bf a}_j^{{\top}}{\bf B}^{{\top}}{\bf B}{\bf a}_j\tilde{{\bf x}}_j^{{\top}})
+    \}\right)\\
+    &\times&\exp\left(\frac{1}{\sigma^2}trace\{(\tilde{{\bf x}}_j{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}})\}\right)\\
+    &=&(\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})
+    ({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+    &\times&\exp\left(-\frac{1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}{\bf B}{\bf a}_j\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j\right)
+    \times \exp\left((-2)\frac{-1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\right).
+\end{eqnarray*}
+
+\begin{eqnarray*}
+    &&p({\bf a}_j|{\bf A}_{(j)},{\bf B},{\boldsymbol \Sigma}_e,{\bf Y})\\
+    &\propto& p({\bf A}|{\bf B},{\boldsymbol \Sigma}_e,{\bf Y})\propto p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)
+    p({\bf A},{\bf B})\\
+    &\propto& p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right)
+    \\
+    &\propto& p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} \sum_{j=1}^{r}{\bf a}_j^{{\top}}{\bf a}_j\right)\\
+    &\propto& \exp\left(-\frac{1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}{\bf B}{\bf a}_j\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j\right)
+    \times \exp\left((-2)\frac{-1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\right)\\
+    &\times& \exp \left(-\frac{\tau^2}{2}{\bf a}_j^{{\top}}{\bf a}_j\right)\\
+    &=& \exp\left\{-\frac{1}{2}\left({\bf a}_j^{{\top}}(\sigma^{-2}{\bf B}^{{\top}}{\bf B}\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j
+    +{\bf I}_r\tau^2){\bf a}_j-2{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\sigma^{-2}\right)\right\}\\
+    &=& \exp\left\{-\frac{1}{2}\left({\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}
+    {\bf a}_j-2{\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}{{\boldsymbol \Sigma}_j^{A}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\sigma^{-2}\right)\right\}\\
+    &=& \exp\left\{-\frac{1}{2}\left({\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1} {\bf a}_j-2{\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}{\boldsymbol \mu}_j^{A}\right)\right\}\\
+    &\propto& \exp\left\{-\frac{1}{2}\left(({\bf a}_j-{\boldsymbol \mu}_j^{A})^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}({\bf a}_j-{\boldsymbol \mu}_j^{A}) \right)\right\},
+\end{eqnarray*}
+where \({\boldsymbol \Sigma}_j^{A}={({\bf B}^{{\top}}{\bf B}\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j\sigma^{-2} +{\bf I}_r\tau^2)}^{-1}\) and
+\({\boldsymbol \mu}_j^{A}={{\boldsymbol \Sigma}_j^{A}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)} {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\sigma^{-2}\).
+
+Hence, \({\bf a}_j|{\bf A}_{(j)},{\bf B},{\boldsymbol \Sigma}_e,{\bf Y}\sim \mathcal{N}_r({\boldsymbol \mu}_j^A,{\boldsymbol \Sigma}_j^A)\).
+\begin{eqnarray*}
+        &&p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)\\
+        &\propto& |{\boldsymbol \Sigma}_e|^{-\frac{q}{2}}\exp\left(-\frac{1}{2}trace\{
+        ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}{\boldsymbol \Sigma}_e^{-1}({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})\}\right)\\
+        &=& (\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{
+        ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})\}\right)\\
+        &=&(\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{({\bf Y}_{(\tilde{l})}
+        -{\bf X}{\bf A}({\bf B}^{{\top}})_{(\tilde{l})})^{{\top}}({\bf Y}_{(\tilde{l})}-{\bf X}{\bf A}({\bf B}^{{\top}})_{(\tilde{l})})\}\right)\\
+        &\times& \exp\left(-\frac{1}{2\sigma^2}\left[{\bf b}_{l}^{{\top}} ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l+\tilde{{\bf y}}_l^{{\top}}\tilde{{\bf y}}_l\right]\right).
+\end{eqnarray*}
+
+\begin{eqnarray*}
+        &&p({\bf b}_l|{\bf A},({\bf B}^{{\top}})_{(\tilde{l})},{\bf Y},{\boldsymbol \Sigma}_e)\\
+        &\propto& p({\bf B}|{\bf A},{\bf Y},{\boldsymbol \Sigma}_e)
+        \propto p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)p({\bf A},{\bf B})\\
+        &\propto & p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right) \\
+        &\propto& p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} \sum_{l=1}^{r}{\bf b}_l^{{\top}}{\bf b}_l\right)\\
+        &\propto& \exp\left(-\frac{1}{2\sigma^2}\left[{\bf b}_{l}^{{\top}} ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l+\tilde{{\bf y}}_l^{{\top}}\tilde{{\bf y}}_l\right]\right)
+        \exp \left(-\frac{\tau^2}{2}{\bf b}_l^{{\top}}{\bf b}_l\right)\\
+        &=& \exp\left(-\frac{1}{2}\left[{\bf b}_{l}^{{\top}} ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}{\bf b}_{l}\sigma^{-2}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}+
+        \tilde{{\bf y}}_l^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\right]\right)
+        \exp \left(-\frac{\tau^2}{2}{\bf b}_l^{{\top}}{\bf b}_l\right)\\
+        &=& \exp\left\{-\frac{1}{2}\left({\bf b}_{l}^{{\top}}( ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}\sigma^{-2}+{\bf I}_r\tau^2){\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\right)\right\}\\
+        &=& \exp\left\{-\frac{1}{2}\left({\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{{\boldsymbol \Sigma}_j^B}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\right)\right\}\\
+        &=& \exp\left\{-\frac {1}{2}\left({\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{\boldsymbol \mu}_j^B\right)\right\}\\
+        &\propto& \exp\left\{-\frac{1}{2}\left(({\bf b}_{l}-{\boldsymbol \mu}_j^B)^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}({\bf b}_{l}-{\boldsymbol \mu}_j^B)
+        \right)\right\},
+\end{eqnarray*}
+where \({\boldsymbol \Sigma}_j^B= (({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}\sigma^{-2}+{\bf I}_r\tau^2)^{-1}\) and \({\boldsymbol \mu}_j^B={{\boldsymbol \Sigma}_j^B}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\).
+
+Hence, \({\bf b}_l|{\bf A},({\bf B}^{{\top}})_{(\tilde{l})},{\bf Y},{\boldsymbol \Sigma}_e\sim \mathcal{N}_r({\boldsymbol \mu}_j^B,{\boldsymbol \Sigma}_j^B)\).
+
+We know that the element in \(k\)th row and \(k\)th column of \({\boldsymbol \Sigma}_e\) is \(\sigma^2, k=1,2,\ldots,q\).
+\begin{eqnarray*}
+ &&p(\sigma^2|{\bf A},{\bf B},{\bf Y},({\boldsymbol \Sigma}_e)_{(k)(\tilde{k})})\\
+ &\propto& p({\boldsymbol \Sigma}_e|{\bf A},{\bf B},{\bf Y})\propto
+ p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)p({\boldsymbol \Sigma}_e)\propto p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)p(\sigma^2)\\
+ &=& (\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{
+ ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+ &\times & (\sigma^2)^{-\frac{a}{2}-1}\exp\left(-\frac{b}{2\sigma^2}\right)\\
+ &=& (\sigma^2)^{-\frac{nq+a}{2}-1}\exp\left(-\frac{1}{2\sigma^2}(trace\{
+ ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}+b)\right).
+\end{eqnarray*}
+Hence, \(\sigma^2|{\bf A},{\bf B},{\bf Y},({\boldsymbol \Sigma}_e)_{(k)(\tilde{k})}\sim \mathcal{IG}\left(\frac{nq+a}{2},\frac{1}{2}(trace\{({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}+b)\right)\).
+
+\hypertarget{gibbs-sampling}{%
+\subsection{Gibbs Sampling}\label{gibbs-sampling}}
+
+The algorithm is easy to construct. Begin with initial values \({\bf A}^{(0)}, {\boldsymbol \Sigma}^{(0)}\), then for t = 1,2,\ldots{}
+
+\begin{itemize}
+\tightlist
+\item
+  Step (1) Given \({\bf A}_{(j)}^{(t-1)},{\bf B}^{{\top}(t-1)}, {\sigma^2}^{(t-1)}\), draw \({\bf a}_j^{(t)}\) from
+  \(\mathcal{N}_r({\boldsymbol \mu}_j^A,{\boldsymbol \Sigma}_j^A),j=r+1,r+2,\ldots,p\);
+\item
+  Step (2) Given \({\bf A}^{(t)},{\bf B}^{{\top}(t-1)}_{(\tilde{l})}, {\sigma^2}^{(t-1)}\), draw \({\bf b}_l^{(t)}\) from
+  \(\mathcal{N}_r({\boldsymbol \mu}_j^B,{\boldsymbol \Sigma}_j^B),l=1,2,\ldots,q\);
+\item
+  Step (3) Given \({\bf B}^{(t)}, {\bf A}^{(t)}\), draw \({\sigma^2}^{(t)}\) from \(\mathcal{IG}\left(a^*,b^*\right)\).
+\item
+  Step (4) Repeat step (1) to step (3) until convergence.
+\end{itemize}
+
+Note that, the step (1) samples the \({\bf a}_j\) from \(j=r+1\), because first part of \({\bf A}\) is \({\bf I}_r\), which is
+known. Hence, step (1) samples the \({\bf A}^*\) and then insert \({\bf I}_r\) together to construct \({\bf A}\).
+
+\hypertarget{model-selection}{%
+\section{Model Selection}\label{model-selection}}
+
+To this point we have proceeded as if r were known. In most applications this will not be
+true and so analysis to this point is conditional.When r is unknown, the analysis may be carried out for several alternative values of r. Under the Bayesian framework, model selection can be implemented by using the model posterior probability conditioning the data,
+\[
+    p(M_r|y)=\frac{p(y|M_r)p(M_r)}{\sum_{r\in \mathcal{M}}p(y|M_r)p(M_r)}=
+    \frac{p(y|M_r)}{\sum_{r\in \mathcal{M}}p(y|M_r)},
+\]
+where \(\mathcal{M}={1,2,\ldots,min(p,q)}\), and \(p(M_r)=\frac{1}{card(\mathcal{M})}\).
+
+Hence, as the prior of rank(model) is flat, \(p(M_r|y)\) is only determined by marginal likelihood (\(p(y|M_r)\)). The model selection problem here is then converted to find out the rank which maximizes the marginal likelihood (\(p(y|M_r)\)). In order to calculate the \(p(y|M_r)\), I used Laplace and Gelfand and Dey (GD) methods, and then compare with DIC.
+
+\hypertarget{laplace}{%
+\subsection{Laplace}\label{laplace}}
+
+Let \({\boldsymbol \theta}= ({\bf A},{\bf B},\sigma^2)\)
+\begin{eqnarray*}
+        p({\bf Y}|M_r) &=& \int \int \int p({\bf Y}|{\boldsymbol \theta},M)p({\boldsymbol \theta}) d{{\bf A}}d{{\bf B}}d{\sigma^2}\\
+        &\approx& p({\bf Y}|\hat{{\boldsymbol \theta}},M)p(\hat{\boldsymbol \theta}|M)|(nq)^{-1}\hat{\boldsymbol \Sigma}_M|^{1/2} (2\pi)^{(k_M/2)},
+\end{eqnarray*}
+where \((\hat{\bf A},\hat{\bf B},\hat\sigma^2)=\arg \max p({\bf Y}|{{\bf A}},{{\bf B}},{\sigma^2},M)p({\bf A},{\bf B},\sigma^2|M)\).
+
+Hence,
+\begin{eqnarray}
+&&\log p({\bf Y}|M_r) \nonumber\\ 
+&\approx& \log p({\bf Y}|\hat{{\boldsymbol \theta}},M) + \log p(\hat{\boldsymbol \theta}|M) -\frac{1}{2}k_M\log nq +\frac{1}{2}|{\boldsymbol \Sigma}_M|
++ \frac{k_M}{2}\log 2\pi\nonumber\\
+&=&-\frac{1}{2} \left(-2\log(p({\bf Y}|\hat{{\bf A}},\hat{{\bf B}},\hat{\sigma^2},M)) + k_M \log nq\right)  +C\nonumber\\
+&=&-\frac{1}{2}(nq\log(2\pi\hat{\sigma^2})-
+\frac{1}{2\hat{\sigma^2}} trace\left\{({\bf Y}-{\bf X}\hat{\bf C})^{{\top}}({\bf Y}-{\bf X}\hat{\bf C}) \right\} \nonumber\\
+&&+ [r(p+q-r)+1] \log(nq))+C\nonumber\\
+&=& -\frac{1}{2}BIC + C\nonumber\\
+&=& -\frac{1}{2}BIC, \text{as } n\rightarrow \infty.
+\label{eq:eq3}
+\end{eqnarray}
+
+The problem we are facing when we use Laplace here is that we need to find the mode of \(p({\bf A},{\bf B},\sigma^2|{\bf Y})\), in which \(({\bf A},{\bf B},\sigma^2)\) is high-dimensional. To address this problem, Besag proposed an iterated conditional modes (ICM) algorithm. The ICM obtains the local maximum of the joint posterior by iteratively maximizing the full conditionals as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Begin with initial values \({\bf A}^{(0)},{\boldsymbol \Sigma}^{(0)}\), then for t = 1,2,\ldots{}
+\item
+  Given \({\bf A}_{(j)}^{(t-1)},{\bf B}^{{\top}(t-1)}, {\sigma^2}^{(t-1)}\), \({\bf a}_j^{(t)}\leftarrow{\boldsymbol \mu}_j^A,j=r+1,r+2,\ldots,p\);
+\item
+  Given \({\bf A}^{(t)},{\bf B}^{{\top}(t-1)}_{(\tilde{l})}, {\sigma^2}^{(t-1)}\), \({\bf b}_l^{(t)}\leftarrow{\boldsymbol \mu}_j^B,l=1,2,\ldots,q\);
+\item
+  Given \({\bf B}^{(t)}, {\bf A}^{(t)}\), \({\sigma^2}^{(t)}\leftarrow\frac{b^*}{a^*-1}\).
+\end{itemize}
+
+We obtain \({\bf C}^{(t)}={\bf A}^{(t)}{\bf B}^{{\top}(t)}\) and estimate \(\hat{{\bf C}}_{ICM}=T^{-1}\sum_{t=1}^{T}{\bf C}^{(t)}\). Put the \(\hat{{\bf C}}_{ICM}\) in the Eq.\eqref{eq:eq3} to calculate \(-\frac{1}{2}BIC\). Hence, the Laplace here is actually propotional to BIC.
+
+\hypertarget{dic}{%
+\subsection{DIC}\label{dic}}
+
+Let \({\boldsymbol \theta}=({\bf A},{\bf B},\sigma^2)\),
+\begin{eqnarray*}
+    &&D({\boldsymbol \theta})\\
+    &=&-2\log p({\bf Y}|{\boldsymbol \theta},M) \\
+    &=&nq\log(2\pi\sigma^2)+ \frac{1}{\sigma^2} trace\left\{({\bf Y}-{\bf X}{\bf C})^{{\top}}({\bf Y}-{\bf X}{\bf C}) \right\}
+\end{eqnarray*}
+
+Then DIC can be computed by
+\[
+DIC \approx 2T^{-1}\sum_{t=1}^{T}D({\boldsymbol \theta}^{(t)})-D(T^{-1}\sum_{t=1}^{T}{\boldsymbol \theta}^{(t)}),
+\]
+where \({\boldsymbol \theta}^{(t)}\) is a MCMC sample generated from \(p({\boldsymbol \theta}|{\bf Y})\).
+
+Note that \(DIC=D(\bar{{\boldsymbol \theta}})+2P_D\), which is analogous to AIC.
+
+\hypertarget{gelfand-dey-gd}{%
+\subsection{Gelfand \& Dey (GD)}\label{gelfand-dey-gd}}
+
+Let \({\boldsymbol \theta}=({\bf A},{\bf B},\sigma^2)\),then the GD estimator is \[p({\bf Y}|M)\approx\left[T^{-1}\sum_{t=1}^{T}\frac{g({\boldsymbol \theta}^{(t)})}{p({\bf Y}|{\boldsymbol \theta}^{(t)})p({\boldsymbol \theta}^{(t)})}\right]^{-1},\]
+where \({\boldsymbol \theta}^{(t)}\) is a MCMC sample generated from \(p({\boldsymbol \theta}|{\bf Y})\). Define \(g({\boldsymbol \theta})=N({\boldsymbol \theta}|\tilde{{\boldsymbol \theta}},\tilde{{\boldsymbol \Sigma}})\), where \(\tilde{{\boldsymbol \theta}}\) and \(\tilde{{\boldsymbol \Sigma}}\) are MCMC sample mean and variance, respectively.
+I use formular as follows:
+\begin{eqnarray}
+\log p({\bf Y}|M)&\approx& \log \left[\frac{1}{T}\sum_{t=1}^{T}\frac{g^{(t)}}{f^{(t)}}\right]^{-1}\nonumber\\
+&=&\log \left[\frac{T}{\sum_{t=1}^{T}\frac{g^{(t)}}{f^{(t)}}}\right]\nonumber\\
+&=&\log T - \log \left(\sum_{t=1}^{T}\frac{g^{(t)}}{f^{(t)}}\right)\nonumber\\
+&=&\log T - \log \left(\sum_{t=1}^{T}\exp (\log g^{(t)}-\log f^{(t)})\right)\label{eq:4}\\
+&=&\log T - \log \left(\sum_{t=1}^{T}\exp c_t\right)\nonumber\\
+&=&\log T - \log \left(e^{ c_{1} }e^{\sum_{t=1}^{T} (c_t-c_{1})}\right)\nonumber\\
+&=&\log T - \left[c_1 + \log \left(\sum_{t=2}^{T} (c_t-c_{1})\right)\right]\nonumber,
+\end{eqnarray}
+where \(g^{(t)}=g({\boldsymbol \theta}), f^{(t)}=p({\bf Y}|{\boldsymbol \theta}^{(t)})p({\boldsymbol \theta}^{(t)}), c_t = \log g^{(t)}-\log f^{(t)}\).
+
+Note that when calculating \(\log p({\bf Y}|M)\), there is a computation problem in formula \eqref{eq:4},
+\(\exp (\log g^{(t)}-\log f^{(t)})\) goes to infinity, due to a very large magnitude of
+\(\log g^{(t)}-\log f^{(t)}\). To solve this problem, I used
+\(\log T - \left[c_1 + \log \left(\sum_{t=2}^{T} (c_t-c_{1})\right)\right]\) to calculate \(\log p({\bf Y}|M)\).
+
+\hypertarget{simulation-study}{%
+\section{Simulation Study}\label{simulation-study}}
+
+\hypertarget{data-generation}{%
+\subsection{Data Generation}\label{data-generation}}
+
+In the simulation study, my goal is to find out the true model or true rank of coefficient matrix(\({\bf C}\)) based on Laplace, DIC and GD method. I set \(n=100,q=12,p=7\) and \(\sigma^2=2\). The coefficient matrix is as follows:
+
+\[{\bf C}=\left[ \begin{array}{@{}*{12}{c}@{}}
+1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\ 
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
+0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 & -3 & 4 & 2  & 2\\ 
+1 & 0 & 0 & 2 & -1 & 0  & 0 & 0 & 0  & 0 & 1  & -1\\ 
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
+0 & 1 & 0 & 0 & 0  & -3 & 2 & 0 & 0  & 0 & -1 & 3\\ 
+0 & 0 & 1 & 0 & 0  & 0  & 0 & 3 &-3  &4  & 2  & 2
+\end{array} \right]\]
+Hence, the true rank of \({\bf C}\) is 3.
+
+Generate data based on the model from Eq.\eqref{eq:eq1}. For the prior,
+\(p({\bf A},{\bf B})\propto\exp\left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right)\) and \(\sigma^2\sim \mathcal{IG}(\frac{a}{2},\frac{b}{2})\), where \(\tau=10^{-3}\) and \(a=b=1\).
+
+After running the MCMC simulation, the result based on 1 replication is shown in Table \ref{tab:table1}.
+
+\begin{longtable}[]{@{}cccccccc@{}}
+\caption{\label{tab:table1} Model Selection among Laplace, DIC and GD Based on 1 Replication.}\tabularnewline
+\toprule
+Method(\(\log\)) & 1 & 2 & \textbf{3} & 4 & 5 & 6 & 7\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Method(\(\log\)) & 1 & 2 & \textbf{3} & 4 & 5 & 6 & 7\tabularnewline
+\midrule
+\endhead
+Laplace & -3007 & -2535 & \textbf{-2223} & -2257 & -2285 & -2310 & -2329\tabularnewline
+DIC & 84300 & 17779 & \textbf{7302} & 7317 & 7325 & 7363 & 7405\tabularnewline
+GD & -3062 & -2631 & \textbf{-2347} & -2397 & -2436 & -2470 & -2495\tabularnewline
+MSE & 1.032 & 0.186 & \textbf{0.0120} & 0.014 & 0.0170 & 0.0192 & 0.0217\tabularnewline
+\bottomrule
+\end{longtable}
+
+The MSE in the table is defined as follows:
+\[
+MSE = \frac{trace\{(\hat {\bf C}-{\bf C})^{{\top}}(\hat {\bf C}-{\bf C})\}}{pq}.
+\]
+MSE indicates the goodness of fit in the reduced rank regression model. We can observe that the MSE is minimized when the rank is 3. This demonstrates that parameter estimation is good enough. For the Laplace, DIC and GD method, in this case, all of them select the true rank. Given rank\(({\bf C})=3\), the estimated \({\bf C}\) is as follows:
+
+\begin{longtable}[]{@{}cccccccccccc@{}}
+\toprule
+\endhead
+1.07 & 0.17 & 0.01 & 2.34 & -0.89 & -0.12 & -0.11 & -0.08 & -0.07 & 0.03 & 1.26 & -1.10\tabularnewline
+-0.02 & 1.00 & 0.04 & -0.14 & -0.17 & -2.83 & 2.10 & 0.10 & 0.03 & 0.03 & -1.04 & 3.17\tabularnewline
+0.13 & -0.03 & 0.99 & 0.18 & -0.02 & 0.08 & 0.00 & 3.06 & -2.85 & 4.03 & 2.10 & 2.06\tabularnewline
+0.94 & 0.14 & 0.03 & 2.05 & -0.78 & -0.08 & -0.11 & -0.03 & -0.10 & 0.07 & 1.13 & -0.95\tabularnewline
+0.04 & 0.99 & 0.04 & -0.00 & -0.21 & -2.79 & 2.05 & 0.10 & 0.01 & 0.04 & -0.95 & 3.05\tabularnewline
+0.12 & 1.05 & 0.00 & 0.18 & -0.29 & -2.93 & 2.14 & -0.02 & 0.12 & -0.12 & -0.98 & 3.03\tabularnewline
+0.08 & -0.01 & 0.98 & 0.08 & 0.01 & 0.03 & 0.04 & 3.03 & -2.81 & 3.98 & 2.01 & 2.14\tabularnewline
+\bottomrule
+\end{longtable}
+
+In addition, when selected rank is larger than 3, the MSE is not worse than I expect. In
+other words, the model based on larger model (larger rank in \({\bf C}\)), the overfiteed models still have a good
+estimation for the \({\bf C}\). The values of DIC, Laplace and GD are not far away from the value at true rank.
+This is very reasonable for overfitted model. But when selected rank smaller than true rank,
+the MSE increase significantly, and the corresponding values of DIC, Laplace and GD are far away from the value at true rank. This means the model miss some important variables. The analysis is based on one replication.
+
+In Table \ref{tab:table2}, the result is based on 1000 replication. I want to see the perfermance of methods for model selection. In
+Table \ref{tab:table2}, Laplace and GD always select true rank, however, the DIC tends to select larger model, because the average of
+selected rank in DIC is about 3.5, whereas, that of Laplace and GD are 3. Besides, for the successful probability of selecting true
+rank, the Laplace and GD, of course, is 100\%, but is 61.7\% for DIC. This makes sense because Laplace and GD are approximated and exact calculation for marginal likehihood, respectively. They work well in model fitting. The DIC is analogous to AIC, which tends to select larger model and better for short-term prediction.
+
+\begin{longtable}[]{@{}ccc@{}}
+\caption{\label{tab:table2} Comparison among Laplace, DIC, GD Based on 1000 Replication.}\tabularnewline
+\toprule
+Method & Mean of Selected rank & Selection Probabiliy\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Method & Mean of Selected rank & Selection Probabiliy\tabularnewline
+\midrule
+\endhead
+Laplace & 3 & 1\tabularnewline
+DIC & 3.525 & 0.617\tabularnewline
+GD & 3 & 1\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{r-code-for-bayeian-reduced-rank-regression-with-dic-used-in-the-simulation-study}{%
+\subsection{R Code for Bayeian reduced rank regression with DIC used in the simulation study}\label{r-code-for-bayeian-reduced-rank-regression-with-dic-used-in-the-simulation-study}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mvtnorm)}
+\KeywordTok{library}\NormalTok{(invgamma)}
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{())}
+\CommentTok{## Data & Model##}
+\NormalTok{row1 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\NormalTok{row2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{row3 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{C <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(row1,row2,row3,row1,row2,row2,row3)}
+\NormalTok{true.rank <-}\StringTok{ }\DecValTok{3}
+\NormalTok{p <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(C)[}\DecValTok{1}\NormalTok{]}
+\NormalTok{q <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(C)[}\DecValTok{2}\NormalTok{]}
+\NormalTok{true.sig2 <-}\StringTok{ }\DecValTok{2}
+\NormalTok{true.SIGe <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(true.sig2,q)}
+\NormalTok{n=}\DecValTok{100}
+\NormalTok{a=b=}\DecValTok{1}
+\NormalTok{tau2=}\FloatTok{1e-3}
+\NormalTok{MC.size=}\DecValTok{5000}
+\NormalTok{burn_in=}\DecValTok{3000}
+\NormalTok{reptn <-}\StringTok{ }\DecValTok{125}
+\NormalTok{error <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(reptn,p))}
+\NormalTok{DIC <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(reptn,p))}
+\NormalTok{TPR.DIC <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,reptn)}
+\NormalTok{TPR.error <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,reptn)}
+\NormalTok{hat.rank <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,reptn)}
+\NormalTok{v=}\DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{reptn) \{}
+\NormalTok{  t1=}\KeywordTok{Sys.time}\NormalTok{()}
+  \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2144}\OperatorTok{+}\NormalTok{i}\OperatorTok{+}\DecValTok{125}\OperatorTok{*}\NormalTok{v)}
+\NormalTok{  X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{p,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),n,p)}
+\NormalTok{  E <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(n, }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,q), true.SIGe, }\DataTypeTok{method=}\StringTok{"chol"}\NormalTok{) }
+\NormalTok{  Y=X}\OperatorTok{%*%}\NormalTok{C}\OperatorTok{+}\NormalTok{E}
+  \CommentTok{## Reduced Rank Regression model ##}
+  \ControlFlowTok{for}\NormalTok{ (r }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{p) \{}
+\NormalTok{    Hat.A <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(p,r,MC.size))}
+\NormalTok{    Hat.B <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(q,r,MC.size))}
+\NormalTok{    Hat.C <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(p,q,MC.size))}
+\NormalTok{    Hat.sig2 <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,MC.size)}
+    \CommentTok{# initial values}
+\NormalTok{    hat.C <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(}\KeywordTok{lm}\NormalTok{(Y}\OperatorTok{~}\NormalTok{X}\DecValTok{-1}\NormalTok{))}
+    \ControlFlowTok{if}\NormalTok{ (r}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{      hat.B <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(hat.C[}\DecValTok{1}\OperatorTok{:}\NormalTok{r,])}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      hat.B <-}\StringTok{ }\KeywordTok{t}\NormalTok{(hat.C[}\DecValTok{1}\OperatorTok{:}\NormalTok{r,])}
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{ (r}\OperatorTok{==}\NormalTok{p) \{}
+\NormalTok{      hat.A <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\DecValTok{1}\NormalTok{,r)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      hat.A <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\DecValTok{1}\NormalTok{,r),hat.C[(r}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{p,]}\OperatorTok{%*%}\NormalTok{hat.B}\OperatorTok{%*%}\KeywordTok{solve}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(hat.B)))}
+\NormalTok{    \}}
+    
+\NormalTok{    hat.sig2 <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{tcrossprod}\NormalTok{(Y}\OperatorTok{-}\NormalTok{X}\OperatorTok{%*%}\NormalTok{hat.A}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(hat.B))))  }\CommentTok{#true.sig2}
+    \CommentTok{## MCMC ##}
+    \ControlFlowTok{for}\NormalTok{ (jin }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{MC.size) \{}
+      \CommentTok{# Sampling A}
+      \ControlFlowTok{if}\NormalTok{ (r}\OperatorTok{==}\NormalTok{p)\{}
+\NormalTok{        Hat.A[,,jin] <-}\StringTok{ }\NormalTok{hat.A}
+\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in}\NormalTok{ (r}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{p) \{}
+\NormalTok{          Sig.A_j <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(hat.B)}\OperatorTok{*}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(X[,j]))}\OperatorTok{/}\NormalTok{hat.sig2}\OperatorTok{+}\KeywordTok{diag}\NormalTok{(tau2,r))}
+\NormalTok{          mu.A_j <-}\StringTok{ }\NormalTok{Sig.A_j}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(hat.B)}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(Y}\OperatorTok{-}\NormalTok{X[,}\OperatorTok{-}\NormalTok{j]}\OperatorTok{%*%}\NormalTok{hat.A[}\OperatorTok{-}\NormalTok{j,]}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(hat.B))}\OperatorTok{%*%}\NormalTok{X[,j]}\OperatorTok{/}\NormalTok{hat.sig2}
+\NormalTok{          hat.a_j <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{1}\NormalTok{,}\DataTypeTok{mean =}\NormalTok{ mu.A_j,}\DataTypeTok{sigma =}\NormalTok{ Sig.A_j)}
+\NormalTok{          hat.A[j,] <-}\StringTok{ }\NormalTok{hat.a_j}
+\NormalTok{        \}}
+\NormalTok{        Hat.A[,,jin] <-}\StringTok{ }\NormalTok{hat.A}
+\NormalTok{      \}}
+      \CommentTok{# Sampling B}
+\NormalTok{      Sig.B_l <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(X}\OperatorTok{%*%}\NormalTok{hat.A)}\OperatorTok{/}\NormalTok{hat.sig2}\OperatorTok{+}\KeywordTok{diag}\NormalTok{(tau2,r))}
+      \ControlFlowTok{for}\NormalTok{(l }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{q) \{}
+\NormalTok{        mu.B_l <-}\StringTok{ }\NormalTok{Sig.B_l}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(X}\OperatorTok{%*%}\NormalTok{hat.A)}\OperatorTok{%*%}\NormalTok{Y[,l]}\OperatorTok{/}\NormalTok{hat.sig2}
+\NormalTok{        hat.b_l <-}\StringTok{ }\KeywordTok{t}\NormalTok{(}\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n=}\DecValTok{1}\NormalTok{,}\DataTypeTok{mean =}\NormalTok{ mu.B_l,}\DataTypeTok{sigma =}\NormalTok{ Sig.B_l))}
+\NormalTok{        hat.B[l,] <-}\StringTok{ }\KeywordTok{t}\NormalTok{(hat.b_l)}
+\NormalTok{      \}}
+\NormalTok{      Hat.B[,,jin] <-}\StringTok{ }\NormalTok{hat.B}
+\NormalTok{      Hat.C[,,jin] <-}\StringTok{ }\NormalTok{hat.A}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(hat.B)}
+      \CommentTok{#Sampling Sig2}
+\NormalTok{      hat.sig2 <-}\StringTok{ }\KeywordTok{rinvgamma}\NormalTok{(}\DataTypeTok{n =} \DecValTok{1}\NormalTok{,}\DataTypeTok{shape =}\NormalTok{ (q}\OperatorTok{*}\NormalTok{n}\OperatorTok{+}\NormalTok{a)}\OperatorTok{/}\DecValTok{2}\NormalTok{,}\DataTypeTok{rate =} \FloatTok{0.5}\OperatorTok{*}\NormalTok{(b}\OperatorTok{+}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{tcrossprod}\NormalTok{(Y}\OperatorTok{-}\NormalTok{X}\OperatorTok{%*%}\NormalTok{hat.A}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(hat.B))))))}
+\NormalTok{      Hat.sig2[jin] <-}\StringTok{ }\NormalTok{hat.sig2}
+      \CommentTok{#print(jin)}
+\NormalTok{    \}}
+\NormalTok{    hat.C <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(Hat.C[,,}\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{burn_in)],}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),mean)}
+\NormalTok{    hat.sig2 <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(Hat.sig2[}\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{burn_in)])}
+    \CommentTok{# print(C)}
+\NormalTok{    D.theta <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NA}\NormalTok{,MC.size}\OperatorTok{-}\NormalTok{burn_in)}
+\NormalTok{    j=}\DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ (jin }\ControlFlowTok{in}\NormalTok{ (burn_in}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\NormalTok{MC.size) \{}
+\NormalTok{      j=j}\OperatorTok{+}\DecValTok{1}
+\NormalTok{      D.theta[j] <-}\StringTok{ }\NormalTok{n}\OperatorTok{*}\NormalTok{q}\OperatorTok{*}\KeywordTok{log}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{Hat.sig2[jin])}\OperatorTok{+}\NormalTok{Hat.sig2[jin]}\OperatorTok{*}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(Y}\OperatorTok{-}\NormalTok{X}\OperatorTok{%*%}\NormalTok{Hat.C[,,jin])))}
+\NormalTok{    \}}
+\NormalTok{    D.hat.theta <-}\StringTok{ }\NormalTok{n}\OperatorTok{*}\NormalTok{q}\OperatorTok{*}\KeywordTok{log}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{hat.sig2)}\OperatorTok{+}\NormalTok{hat.sig2}\OperatorTok{*}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(}\KeywordTok{crossprod}\NormalTok{(Y}\OperatorTok{-}\NormalTok{X}\OperatorTok{%*%}\NormalTok{hat.C)))}
+\NormalTok{    DIC[i,r] <-}\StringTok{ }\DecValTok{2}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(D.theta)}\OperatorTok{-}\StringTok{ }\NormalTok{D.hat.theta}
+\NormalTok{    error[i,r] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{((hat.C}\OperatorTok{-}\NormalTok{C)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(p}\OperatorTok{*}\NormalTok{q)}
+\NormalTok{  \}}
+\NormalTok{  hat.rank[i] <-}\StringTok{ }\KeywordTok{which.min}\NormalTok{(DIC[i,])}
+\NormalTok{  TPR.DIC[i] <-}\StringTok{ }\NormalTok{hat.rank[i]}\OperatorTok{==}\NormalTok{true.rank}
+\NormalTok{  TPR.error[i] <-}\StringTok{ }\KeywordTok{which.min}\NormalTok{(error[i,])}\OperatorTok{==}\NormalTok{true.rank}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{c}\NormalTok{(i,hat.rank[i]))}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{Sys.time}\NormalTok{()}\OperatorTok{-}\NormalTok{t1)}
+\NormalTok{\}}
+
+\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{hat.rank=}\KeywordTok{mean}\NormalTok{(hat.rank),}\DataTypeTok{TPR.DIC=}\KeywordTok{mean}\NormalTok{(TPR.DIC),}\DataTypeTok{TPR.ERR=}\KeywordTok{mean}\NormalTok{(TPR.error))}
+\KeywordTok{save}\NormalTok{(}\DataTypeTok{list =} \KeywordTok{ls}\NormalTok{(), }\DataTypeTok{file =} \KeywordTok{paste0}\NormalTok{(}\StringTok{'DIC-'}\NormalTok{,v,}\StringTok{'.RData'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\bibliography{book.bib}
+
+
+\end{document}

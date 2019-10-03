@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics</title>
+  <meta name="description" content="Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
+  <meta name="generator" content="bookdown 0.13.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Bayesian Reduced Rank Regression | Bayesian reduced rank regression in econometrics" />
+  
+  
+  
+
+<meta name="author" content="Caleb Jin" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Bayesian Reduced Rank Regression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreword</a></li>
+<li class="chapter" data-level="2" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html"><i class="fa fa-check"></i><b>2</b> Bayesian Reduced Rank Regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#bayesian-rank-reduced-regression-model"><i class="fa fa-check"></i><b>2.2</b> Bayesian Rank Reduced Regression model</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#posterior-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Posterior Distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#gibbs-sampling"><i class="fa fa-check"></i><b>2.2.2</b> Gibbs Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#model-selection"><i class="fa fa-check"></i><b>2.3</b> Model Selection</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#laplace"><i class="fa fa-check"></i><b>2.3.1</b> Laplace</a></li>
+<li class="chapter" data-level="2.3.2" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#dic"><i class="fa fa-check"></i><b>2.3.2</b> DIC</a></li>
+<li class="chapter" data-level="2.3.3" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#gelfand-dey-gd"><i class="fa fa-check"></i><b>2.3.3</b> Gelfand &amp; Dey (GD)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#simulation-study"><i class="fa fa-check"></i><b>2.4</b> Simulation Study</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#data-generation"><i class="fa fa-check"></i><b>2.4.1</b> Data Generation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="bayesian-reduced-rank-regression.html"><a href="bayesian-reduced-rank-regression.html#r-code-for-bayeian-reduced-rank-regression-with-dic-used-in-the-simulation-study"><i class="fa fa-check"></i><b>2.4.2</b> R Code for Bayeian reduced rank regression with DIC used in the simulation study</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://www.sjin.name" target="blank">Caleb Jin|金时强</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bayesian reduced rank regression in econometrics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bayesian-reduced-rank-regression" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Bayesian Reduced Rank Regression</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<p>In contemporary sociey, a big amount of data are generated and collected more easily and routinely in various academic and industrial areas, such as engineering, politics, B2C e-ccommerce, genomics, etc. Many problems could be cast into statistical problems under the framework of multivariate linear regression model, which is characterized by that both reponse variables and predictors are high dimensionality.</p>
+<p>We assume <span class="math inline">\(n\)</span> independent observations of the response <span class="math inline">\({\bf y}_i\in \mathcal{R}^q\)</span> with predictor vector
+<span class="math inline">\({\bf x}_i\in\mathcal{R}^p\)</span>, <span class="math inline">\(i=1,2,\ldots,n\)</span>. Cosider multivariate linear regression model as follows:
+<span class="math display" id="eq:eq1">\[\begin{eqnarray}
+    {\bf Y}={\bf X}{\bf C}+ {\bf E},
+    \tag{2.1}
+    \end{eqnarray}\]</span>
+where <span class="math inline">\({\bf Y}=({\bf y}_1,{\bf y}_2,\ldots,{\bf y}_n)^{{\top}}\in\mathcal{R}^{n\times q}\)</span> is the response matrix, <span class="math inline">\({\bf X}=({\bf x}_1,{\bf x}_2,\ldots,{\bf x}_n)^{{\top}}\in\mathcal{R}^{n\times p}\)</span> is the design matrix, <span class="math inline">\({\bf C}\in\mathcal{R}^{p\times q}\)</span> is the coefficient matrix, and <span class="math inline">\({\bf E}=({\bf ue}_1,{\bf ue}_2,\ldots,{\bf ue}_n)^{{\top}}\in\mathcal{R}^{n\times q}\)</span> is the disturbance matrix with <span class="math inline">\({\bf ue}_i\)</span>’s <span class="math inline">\(\overset{iid}{\sim}\mathcal{N}_q({\bf 0},{\boldsymbol \Sigma}_e)\)</span>. We assume <span class="math inline">\({\boldsymbol \Sigma}_e=\sigma^2{\bf I}_q\)</span>. Therefore, we have <span class="math inline">\({\bf Y}\sim\mathcal{MN}({\bf X}{\bf C},{\boldsymbol \Sigma}_e,{\bf I}_n)\)</span>.</p>
+</div>
+<div id="bayesian-rank-reduced-regression-model" class="section level2">
+<h2><span class="header-section-number">2.2</span> Bayesian Rank Reduced Regression model</h2>
+<p>We consider to decompose the coefficient matrix into two part as follows:
+<span class="math display">\[\begin{eqnarray}
+     {\bf C}={\bf A}{\bf B}^{{\top}},
+\end{eqnarray}\]</span>
+where <span class="math inline">\({\bf A}\in\mathcal{R}^{p\times r}\)</span>, <span class="math inline">\({\bf B}\in\mathcal{R}^{r\times q}\)</span> and known <span class="math inline">\(r\leq \min(p,q)\)</span>.
+However, this decomposition is not unique, because with a <span class="math inline">\(r\times r\)</span> nonsingular matrix <span class="math inline">\({\bf Q}, {\bf C}={\bf A}{\bf B}^{{\top}}={\bf A}{\bf Q}{\bf Q}^{-1}{\bf B}^{{\top}}=\tilde{{\bf A}}\tilde{{\bf B}}^{{\top}}.\)</span>
+In order to indentify it, we further decompose <span class="math inline">\({\bf A}\)</span>. <span class="math inline">\({\bf A}^{{\top}}=[{\bf I}_r, {{\bf A}^*}^{{\top}}]\)</span>. The author assumes that <span class="math inline">\(p({\bf A},{\bf B})\propto\exp\left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right)\)</span> and <span class="math inline">\(\sigma^2\sim \mathcal{IG}(\frac{a}{2},\frac{b}{2})\)</span>.</p>
+<div id="posterior-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Posterior Distribution</h3>
+<p>Let <span class="math inline">\(\tilde{{\bf a}}_k\)</span> and <span class="math inline">\(\tilde{{\bf b}}_k\)</span> denote the <span class="math inline">\(k\)</span>th column of <span class="math inline">\({\bf A}\)</span> and <span class="math inline">\({\bf B}\)</span>, respectively. Let <span class="math inline">\({{\bf a}}_j^{{\top}}\)</span> and <span class="math inline">\({{\bf b}}_l^{{\top}}\)</span> denote the <span class="math inline">\(y\)</span>th row of <span class="math inline">\({\bf A}\)</span> and <span class="math inline">\(l\)</span>th row of <span class="math inline">\({\bf B}\)</span>, respectively.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+    &amp;&amp;p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)\\
+    &amp;\propto&amp; |{\boldsymbol \Sigma}_e|^{-\frac{q}{2}}\exp\left(-\frac{1}{2}trace\{
+    ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}{\boldsymbol \Sigma}_e^{-1}\}\right)\\
+    &amp;=&amp; (\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{
+    ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+    &amp;=&amp;(\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})
+    ({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+    &amp;\times&amp;\exp\left(-\frac{1}{2\sigma^2}trace\{(\tilde{{\bf x}}_j{\bf a}_j^{{\top}}{\bf B}^{{\top}}{\bf B}{\bf a}_j\tilde{{\bf x}}_j^{{\top}})
+    \}\right)\\
+    &amp;\times&amp;\exp\left(\frac{1}{\sigma^2}trace\{(\tilde{{\bf x}}_j{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}})\}\right)\\
+    &amp;=&amp;(\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})
+    ({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+    &amp;\times&amp;\exp\left(-\frac{1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}{\bf B}{\bf a}_j\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j\right)
+    \times \exp\left((-2)\frac{-1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\right).
+\end{eqnarray*}\]</span></p>
+<p><span class="math display">\[\begin{eqnarray*}
+    &amp;&amp;p({\bf a}_j|{\bf A}_{(j)},{\bf B},{\boldsymbol \Sigma}_e,{\bf Y})\\
+    &amp;\propto&amp; p({\bf A}|{\bf B},{\boldsymbol \Sigma}_e,{\bf Y})\propto p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)
+    p({\bf A},{\bf B})\\
+    &amp;\propto&amp; p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right)
+    \\
+    &amp;\propto&amp; p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} \sum_{j=1}^{r}{\bf a}_j^{{\top}}{\bf a}_j\right)\\
+    &amp;\propto&amp; \exp\left(-\frac{1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}{\bf B}{\bf a}_j\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j\right)
+    \times \exp\left((-2)\frac{-1}{2\sigma^2}{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\right)\\
+    &amp;\times&amp; \exp \left(-\frac{\tau^2}{2}{\bf a}_j^{{\top}}{\bf a}_j\right)\\
+    &amp;=&amp; \exp\left\{-\frac{1}{2}\left({\bf a}_j^{{\top}}(\sigma^{-2}{\bf B}^{{\top}}{\bf B}\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j
+    +{\bf I}_r\tau^2){\bf a}_j-2{\bf a}_j^{{\top}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\sigma^{-2}\right)\right\}\\
+    &amp;=&amp; \exp\left\{-\frac{1}{2}\left({\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}
+    {\bf a}_j-2{\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}{{\boldsymbol \Sigma}_j^{A}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)}
+    {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\sigma^{-2}\right)\right\}\\
+    &amp;=&amp; \exp\left\{-\frac{1}{2}\left({\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1} {\bf a}_j-2{\bf a}_j^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}{\boldsymbol \mu}_j^{A}\right)\right\}\\
+    &amp;\propto&amp; \exp\left\{-\frac{1}{2}\left(({\bf a}_j-{\boldsymbol \mu}_j^{A})^{{\top}}{{\boldsymbol \Sigma}_j^{A}}^{-1}({\bf a}_j-{\boldsymbol \mu}_j^{A}) \right)\right\},
+\end{eqnarray*}\]</span>
+where <span class="math inline">\({\boldsymbol \Sigma}_j^{A}={({\bf B}^{{\top}}{\bf B}\tilde{{\bf x}}_j^{{\top}}\tilde{{\bf x}}_j\sigma^{-2} +{\bf I}_r\tau^2)}^{-1}\)</span> and
+<span class="math inline">\({\boldsymbol \mu}_j^{A}={{\boldsymbol \Sigma}_j^{A}}{\bf B}^{{\top}}({\bf Y}-{\bf X}_{(\tilde{j})}{\bf A}_{(j)} {\bf B}^{{\top}})^{{\top}}\tilde{{\bf x}}_j\sigma^{-2}\)</span>.</p>
+<p>Hence, <span class="math inline">\({\bf a}_j|{\bf A}_{(j)},{\bf B},{\boldsymbol \Sigma}_e,{\bf Y}\sim \mathcal{N}_r({\boldsymbol \mu}_j^A,{\boldsymbol \Sigma}_j^A)\)</span>.
+<span class="math display">\[\begin{eqnarray*}
+        &amp;&amp;p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)\\
+        &amp;\propto&amp; |{\boldsymbol \Sigma}_e|^{-\frac{q}{2}}\exp\left(-\frac{1}{2}trace\{
+        ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}{\boldsymbol \Sigma}_e^{-1}({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})\}\right)\\
+        &amp;=&amp; (\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{
+        ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})\}\right)\\
+        &amp;=&amp;(\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{({\bf Y}_{(\tilde{l})}
+        -{\bf X}{\bf A}({\bf B}^{{\top}})_{(\tilde{l})})^{{\top}}({\bf Y}_{(\tilde{l})}-{\bf X}{\bf A}({\bf B}^{{\top}})_{(\tilde{l})})\}\right)\\
+        &amp;\times&amp; \exp\left(-\frac{1}{2\sigma^2}\left[{\bf b}_{l}^{{\top}} ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l+\tilde{{\bf y}}_l^{{\top}}\tilde{{\bf y}}_l\right]\right).
+\end{eqnarray*}\]</span></p>
+<p><span class="math display">\[\begin{eqnarray*}
+        &amp;&amp;p({\bf b}_l|{\bf A},({\bf B}^{{\top}})_{(\tilde{l})},{\bf Y},{\boldsymbol \Sigma}_e)\\
+        &amp;\propto&amp; p({\bf B}|{\bf A},{\bf Y},{\boldsymbol \Sigma}_e)
+        \propto p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)p({\bf A},{\bf B})\\
+        &amp;\propto &amp; p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right) \\
+        &amp;\propto&amp; p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e) \exp \left(-\frac{\tau^2}{2} \sum_{l=1}^{r}{\bf b}_l^{{\top}}{\bf b}_l\right)\\
+        &amp;\propto&amp; \exp\left(-\frac{1}{2\sigma^2}\left[{\bf b}_{l}^{{\top}} ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l+\tilde{{\bf y}}_l^{{\top}}\tilde{{\bf y}}_l\right]\right)
+        \exp \left(-\frac{\tau^2}{2}{\bf b}_l^{{\top}}{\bf b}_l\right)\\
+        &amp;=&amp; \exp\left(-\frac{1}{2}\left[{\bf b}_{l}^{{\top}} ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}{\bf b}_{l}\sigma^{-2}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}+
+        \tilde{{\bf y}}_l^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\right]\right)
+        \exp \left(-\frac{\tau^2}{2}{\bf b}_l^{{\top}}{\bf b}_l\right)\\
+        &amp;=&amp; \exp\left\{-\frac{1}{2}\left({\bf b}_{l}^{{\top}}( ({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}\sigma^{-2}+{\bf I}_r\tau^2){\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\right)\right\}\\
+        &amp;=&amp; \exp\left\{-\frac{1}{2}\left({\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{{\boldsymbol \Sigma}_j^B}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\right)\right\}\\
+        &amp;=&amp; \exp\left\{-\frac {1}{2}\left({\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{\bf b}_{l}-
+        2{\bf b}_{l}^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}{\boldsymbol \mu}_j^B\right)\right\}\\
+        &amp;\propto&amp; \exp\left\{-\frac{1}{2}\left(({\bf b}_{l}-{\boldsymbol \mu}_j^B)^{{\top}}{{\boldsymbol \Sigma}_j^B}^{-1}({\bf b}_{l}-{\boldsymbol \mu}_j^B)
+        \right)\right\},
+\end{eqnarray*}\]</span>
+where <span class="math inline">\({\boldsymbol \Sigma}_j^B= (({\bf X}{\bf A})^{{\top}}{\bf X}{\bf A}\sigma^{-2}+{\bf I}_r\tau^2)^{-1}\)</span> and <span class="math inline">\({\boldsymbol \mu}_j^B={{\boldsymbol \Sigma}_j^B}({\bf X}{\bf A})^{{\top}}\tilde{{\bf y}}_l\sigma^{-2}\)</span>.</p>
+<p>Hence, <span class="math inline">\({\bf b}_l|{\bf A},({\bf B}^{{\top}})_{(\tilde{l})},{\bf Y},{\boldsymbol \Sigma}_e\sim \mathcal{N}_r({\boldsymbol \mu}_j^B,{\boldsymbol \Sigma}_j^B)\)</span>.</p>
+<p>We know that the element in <span class="math inline">\(k\)</span>th row and <span class="math inline">\(k\)</span>th column of <span class="math inline">\({\boldsymbol \Sigma}_e\)</span> is <span class="math inline">\(\sigma^2, k=1,2,\ldots,q\)</span>.
+<span class="math display">\[\begin{eqnarray*}
+ &amp;&amp;p(\sigma^2|{\bf A},{\bf B},{\bf Y},({\boldsymbol \Sigma}_e)_{(k)(\tilde{k})})\\
+ &amp;\propto&amp; p({\boldsymbol \Sigma}_e|{\bf A},{\bf B},{\bf Y})\propto
+ p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)p({\boldsymbol \Sigma}_e)\propto p({\bf Y}|{\bf A},{\bf B},{\boldsymbol \Sigma}_e)p(\sigma^2)\\
+ &amp;=&amp; (\sigma^2)^{-\frac{nq}{2}}\exp\left(-\frac{1}{2\sigma^2}trace\{
+ ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}\right)\\
+ &amp;\times &amp; (\sigma^2)^{-\frac{a}{2}-1}\exp\left(-\frac{b}{2\sigma^2}\right)\\
+ &amp;=&amp; (\sigma^2)^{-\frac{nq+a}{2}-1}\exp\left(-\frac{1}{2\sigma^2}(trace\{
+ ({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}+b)\right).
+\end{eqnarray*}\]</span>
+Hence, <span class="math inline">\(\sigma^2|{\bf A},{\bf B},{\bf Y},({\boldsymbol \Sigma}_e)_{(k)(\tilde{k})}\sim \mathcal{IG}\left(\frac{nq+a}{2},\frac{1}{2}(trace\{({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})({\bf Y}-{\bf X}{\bf A}{\bf B}^{{\top}})^{{\top}}\}+b)\right)\)</span>.</p>
+</div>
+<div id="gibbs-sampling" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Gibbs Sampling</h3>
+<p>The algorithm is easy to construct. Begin with initial values <span class="math inline">\({\bf A}^{(0)}, {\boldsymbol \Sigma}^{(0)}\)</span>, then for t = 1,2,…</p>
+<ul>
+<li>Step (1) Given <span class="math inline">\({\bf A}_{(j)}^{(t-1)},{\bf B}^{{\top}(t-1)}, {\sigma^2}^{(t-1)}\)</span>, draw <span class="math inline">\({\bf a}_j^{(t)}\)</span> from
+<span class="math inline">\(\mathcal{N}_r({\boldsymbol \mu}_j^A,{\boldsymbol \Sigma}_j^A),j=r+1,r+2,\ldots,p\)</span>;</li>
+<li>Step (2) Given <span class="math inline">\({\bf A}^{(t)},{\bf B}^{{\top}(t-1)}_{(\tilde{l})}, {\sigma^2}^{(t-1)}\)</span>, draw <span class="math inline">\({\bf b}_l^{(t)}\)</span> from
+<span class="math inline">\(\mathcal{N}_r({\boldsymbol \mu}_j^B,{\boldsymbol \Sigma}_j^B),l=1,2,\ldots,q\)</span>;</li>
+<li>Step (3) Given <span class="math inline">\({\bf B}^{(t)}, {\bf A}^{(t)}\)</span>, draw <span class="math inline">\({\sigma^2}^{(t)}\)</span> from <span class="math inline">\(\mathcal{IG}\left(a^*,b^*\right)\)</span>.</li>
+<li>Step (4) Repeat step (1) to step (3) until convergence.</li>
+</ul>
+<p>Note that, the step (1) samples the <span class="math inline">\({\bf a}_j\)</span> from <span class="math inline">\(j=r+1\)</span>, because first part of <span class="math inline">\({\bf A}\)</span> is <span class="math inline">\({\bf I}_r\)</span>, which is
+known. Hence, step (1) samples the <span class="math inline">\({\bf A}^*\)</span> and then insert <span class="math inline">\({\bf I}_r\)</span> together to construct <span class="math inline">\({\bf A}\)</span>.</p>
+</div>
+</div>
+<div id="model-selection" class="section level2">
+<h2><span class="header-section-number">2.3</span> Model Selection</h2>
+<p>To this point we have proceeded as if r were known. In most applications this will not be
+true and so analysis to this point is conditional.When r is unknown, the analysis may be carried out for several alternative values of r. Under the Bayesian framework, model selection can be implemented by using the model posterior probability conditioning the data,
+<span class="math display">\[
+    p(M_r|y)=\frac{p(y|M_r)p(M_r)}{\sum_{r\in \mathcal{M}}p(y|M_r)p(M_r)}=
+    \frac{p(y|M_r)}{\sum_{r\in \mathcal{M}}p(y|M_r)},
+\]</span>
+where <span class="math inline">\(\mathcal{M}={1,2,\ldots,min(p,q)}\)</span>, and <span class="math inline">\(p(M_r)=\frac{1}{card(\mathcal{M})}\)</span>.</p>
+<p>Hence, as the prior of rank(model) is flat, <span class="math inline">\(p(M_r|y)\)</span> is only determined by marginal likelihood (<span class="math inline">\(p(y|M_r)\)</span>). The model selection problem here is then converted to find out the rank which maximizes the marginal likelihood (<span class="math inline">\(p(y|M_r)\)</span>). In order to calculate the <span class="math inline">\(p(y|M_r)\)</span>, I used Laplace and Gelfand and Dey (GD) methods, and then compare with DIC.</p>
+<div id="laplace" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Laplace</h3>
+<p>Let <span class="math inline">\({\boldsymbol \theta}= ({\bf A},{\bf B},\sigma^2)\)</span>
+<span class="math display">\[\begin{eqnarray*}
+        p({\bf Y}|M_r) &amp;=&amp; \int \int \int p({\bf Y}|{\boldsymbol \theta},M)p({\boldsymbol \theta}) d{{\bf A}}d{{\bf B}}d{\sigma^2}\\
+        &amp;\approx&amp; p({\bf Y}|\hat{{\boldsymbol \theta}},M)p(\hat{\boldsymbol \theta}|M)|(nq)^{-1}\hat{\boldsymbol \Sigma}_M|^{1/2} (2\pi)^{(k_M/2)},
+\end{eqnarray*}\]</span>
+where <span class="math inline">\((\hat{\bf A},\hat{\bf B},\hat\sigma^2)=\arg \max p({\bf Y}|{{\bf A}},{{\bf B}},{\sigma^2},M)p({\bf A},{\bf B},\sigma^2|M)\)</span>.</p>
+<p>Hence,
+<span class="math display" id="eq:eq3">\[\begin{eqnarray}
+&amp;&amp;\log p({\bf Y}|M_r) \nonumber\\ 
+&amp;\approx&amp; \log p({\bf Y}|\hat{{\boldsymbol \theta}},M) + \log p(\hat{\boldsymbol \theta}|M) -\frac{1}{2}k_M\log nq +\frac{1}{2}|{\boldsymbol \Sigma}_M|
++ \frac{k_M}{2}\log 2\pi\nonumber\\
+&amp;=&amp;-\frac{1}{2} \left(-2\log(p({\bf Y}|\hat{{\bf A}},\hat{{\bf B}},\hat{\sigma^2},M)) + k_M \log nq\right)  +C\nonumber\\
+&amp;=&amp;-\frac{1}{2}(nq\log(2\pi\hat{\sigma^2})-
+\frac{1}{2\hat{\sigma^2}} trace\left\{({\bf Y}-{\bf X}\hat{\bf C})^{{\top}}({\bf Y}-{\bf X}\hat{\bf C}) \right\} \nonumber\\
+&amp;&amp;+ [r(p+q-r)+1] \log(nq))+C\nonumber\\
+&amp;=&amp; -\frac{1}{2}BIC + C\nonumber\\
+&amp;=&amp; -\frac{1}{2}BIC, \text{as } n\rightarrow \infty.
+\tag{2.2}
+\end{eqnarray}\]</span></p>
+<p>The problem we are facing when we use Laplace here is that we need to find the mode of <span class="math inline">\(p({\bf A},{\bf B},\sigma^2|{\bf Y})\)</span>, in which <span class="math inline">\(({\bf A},{\bf B},\sigma^2)\)</span> is high-dimensional. To address this problem, Besag proposed an iterated conditional modes (ICM) algorithm. The ICM obtains the local maximum of the joint posterior by iteratively maximizing the full conditionals as follows:</p>
+<ul>
+<li>Begin with initial values <span class="math inline">\({\bf A}^{(0)},{\boldsymbol \Sigma}^{(0)}\)</span>, then for t = 1,2,…</li>
+<li>Given <span class="math inline">\({\bf A}_{(j)}^{(t-1)},{\bf B}^{{\top}(t-1)}, {\sigma^2}^{(t-1)}\)</span>, <span class="math inline">\({\bf a}_j^{(t)}\leftarrow{\boldsymbol \mu}_j^A,j=r+1,r+2,\ldots,p\)</span>;</li>
+<li>Given <span class="math inline">\({\bf A}^{(t)},{\bf B}^{{\top}(t-1)}_{(\tilde{l})}, {\sigma^2}^{(t-1)}\)</span>, <span class="math inline">\({\bf b}_l^{(t)}\leftarrow{\boldsymbol \mu}_j^B,l=1,2,\ldots,q\)</span>;</li>
+<li>Given <span class="math inline">\({\bf B}^{(t)}, {\bf A}^{(t)}\)</span>, <span class="math inline">\({\sigma^2}^{(t)}\leftarrow\frac{b^*}{a^*-1}\)</span>.</li>
+</ul>
+<p>We obtain <span class="math inline">\({\bf C}^{(t)}={\bf A}^{(t)}{\bf B}^{{\top}(t)}\)</span> and estimate <span class="math inline">\(\hat{{\bf C}}_{ICM}=T^{-1}\sum_{t=1}^{T}{\bf C}^{(t)}\)</span>. Put the <span class="math inline">\(\hat{{\bf C}}_{ICM}\)</span> in the Eq.<a href="bayesian-reduced-rank-regression.html#eq:eq3">(2.2)</a> to calculate <span class="math inline">\(-\frac{1}{2}BIC\)</span>. Hence, the Laplace here is actually propotional to BIC.</p>
+</div>
+<div id="dic" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> DIC</h3>
+<p>Let <span class="math inline">\({\boldsymbol \theta}=({\bf A},{\bf B},\sigma^2)\)</span>,
+<span class="math display">\[\begin{eqnarray*}
+    &amp;&amp;D({\boldsymbol \theta})\\
+    &amp;=&amp;-2\log p({\bf Y}|{\boldsymbol \theta},M) \\
+    &amp;=&amp;nq\log(2\pi\sigma^2)+ \frac{1}{\sigma^2} trace\left\{({\bf Y}-{\bf X}{\bf C})^{{\top}}({\bf Y}-{\bf X}{\bf C}) \right\}
+\end{eqnarray*}\]</span></p>
+<p>Then DIC can be computed by
+<span class="math display">\[
+DIC \approx 2T^{-1}\sum_{t=1}^{T}D({\boldsymbol \theta}^{(t)})-D(T^{-1}\sum_{t=1}^{T}{\boldsymbol \theta}^{(t)}),
+\]</span>
+where <span class="math inline">\({\boldsymbol \theta}^{(t)}\)</span> is a MCMC sample generated from <span class="math inline">\(p({\boldsymbol \theta}|{\bf Y})\)</span>.</p>
+<p>Note that <span class="math inline">\(DIC=D(\bar{{\boldsymbol \theta}})+2P_D\)</span>, which is analogous to AIC.</p>
+</div>
+<div id="gelfand-dey-gd" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Gelfand &amp; Dey (GD)</h3>
+<p>Let <span class="math inline">\({\boldsymbol \theta}=({\bf A},{\bf B},\sigma^2)\)</span>,then the GD estimator is <span class="math display">\[p({\bf Y}|M)\approx\left[T^{-1}\sum_{t=1}^{T}\frac{g({\boldsymbol \theta}^{(t)})}{p({\bf Y}|{\boldsymbol \theta}^{(t)})p({\boldsymbol \theta}^{(t)})}\right]^{-1},\]</span>
+where <span class="math inline">\({\boldsymbol \theta}^{(t)}\)</span> is a MCMC sample generated from <span class="math inline">\(p({\boldsymbol \theta}|{\bf Y})\)</span>. Define <span class="math inline">\(g({\boldsymbol \theta})=N({\boldsymbol \theta}|\tilde{{\boldsymbol \theta}},\tilde{{\boldsymbol \Sigma}})\)</span>, where <span class="math inline">\(\tilde{{\boldsymbol \theta}}\)</span> and <span class="math inline">\(\tilde{{\boldsymbol \Sigma}}\)</span> are MCMC sample mean and variance, respectively.
+I use formular as follows:
+<span class="math display" id="eq:4">\[\begin{eqnarray}
+\log p({\bf Y}|M)&amp;\approx&amp; \log \left[\frac{1}{T}\sum_{t=1}^{T}\frac{g^{(t)}}{f^{(t)}}\right]^{-1}\nonumber\\
+&amp;=&amp;\log \left[\frac{T}{\sum_{t=1}^{T}\frac{g^{(t)}}{f^{(t)}}}\right]\nonumber\\
+&amp;=&amp;\log T - \log \left(\sum_{t=1}^{T}\frac{g^{(t)}}{f^{(t)}}\right)\nonumber\\
+&amp;=&amp;\log T - \log \left(\sum_{t=1}^{T}\exp (\log g^{(t)}-\log f^{(t)})\right)\tag{2.3}\\
+&amp;=&amp;\log T - \log \left(\sum_{t=1}^{T}\exp c_t\right)\nonumber\\
+&amp;=&amp;\log T - \log \left(e^{ c_{1} }e^{\sum_{t=1}^{T} (c_t-c_{1})}\right)\nonumber\\
+&amp;=&amp;\log T - \left[c_1 + \log \left(\sum_{t=2}^{T} (c_t-c_{1})\right)\right]\nonumber,
+\end{eqnarray}\]</span>
+where <span class="math inline">\(g^{(t)}=g({\boldsymbol \theta}), f^{(t)}=p({\bf Y}|{\boldsymbol \theta}^{(t)})p({\boldsymbol \theta}^{(t)}), c_t = \log g^{(t)}-\log f^{(t)}\)</span>.</p>
+<p>Note that when calculating <span class="math inline">\(\log p({\bf Y}|M)\)</span>, there is a computation problem in formula <a href="bayesian-reduced-rank-regression.html#eq:4">(2.3)</a>,
+<span class="math inline">\(\exp (\log g^{(t)}-\log f^{(t)})\)</span> goes to infinity, due to a very large magnitude of
+<span class="math inline">\(\log g^{(t)}-\log f^{(t)}\)</span>. To solve this problem, I used
+<span class="math inline">\(\log T - \left[c_1 + \log \left(\sum_{t=2}^{T} (c_t-c_{1})\right)\right]\)</span> to calculate <span class="math inline">\(\log p({\bf Y}|M)\)</span>.</p>
+</div>
+</div>
+<div id="simulation-study" class="section level2">
+<h2><span class="header-section-number">2.4</span> Simulation Study</h2>
+<div id="data-generation" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Data Generation</h3>
+<p>In the simulation study, my goal is to find out the true model or true rank of coefficient matrix(<span class="math inline">\({\bf C}\)</span>) based on Laplace, DIC and GD method. I set <span class="math inline">\(n=100,q=12,p=7\)</span> and <span class="math inline">\(\sigma^2=2\)</span>. The coefficient matrix is as follows:</p>
+<p><span class="math display">\[{\bf C}=\left[ \begin{array}{@{}*{12}{c}@{}}
+1 &amp; 0 &amp; 0 &amp; 2 &amp; -1 &amp; 0  &amp; 0 &amp; 0 &amp; 0  &amp; 0 &amp; 1  &amp; -1\\ 
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\ 
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0  &amp; 0  &amp; 0 &amp; 3 &amp; -3 &amp; 4 &amp; 2  &amp; 2\\ 
+1 &amp; 0 &amp; 0 &amp; 2 &amp; -1 &amp; 0  &amp; 0 &amp; 0 &amp; 0  &amp; 0 &amp; 1  &amp; -1\\ 
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\ 
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0  &amp; -3 &amp; 2 &amp; 0 &amp; 0  &amp; 0 &amp; -1 &amp; 3\\ 
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0  &amp; 0  &amp; 0 &amp; 3 &amp;-3  &amp;4  &amp; 2  &amp; 2
+\end{array} \right]\]</span>
+Hence, the true rank of <span class="math inline">\({\bf C}\)</span> is 3.</p>
+<p>Generate data based on the model from Eq.<a href="bayesian-reduced-rank-regression.html#eq:eq1">(2.1)</a>. For the prior,
+<span class="math inline">\(p({\bf A},{\bf B})\propto\exp\left(-\frac{\tau^2}{2} trace\{ {\bf A}^{{\top}}{\bf A}+{\bf B}^{{\top}}{\bf B}\}\right)\)</span> and <span class="math inline">\(\sigma^2\sim \mathcal{IG}(\frac{a}{2},\frac{b}{2})\)</span>, where <span class="math inline">\(\tau=10^{-3}\)</span> and <span class="math inline">\(a=b=1\)</span>.</p>
+<p>After running the MCMC simulation, the result based on 1 replication is shown in Table <a href="bayesian-reduced-rank-regression.html#tab:table1">2.1</a>.</p>
+<table>
+<caption><span id="tab:table1">Table 2.1: </span> Model Selection among Laplace, DIC and GD Based on 1 Replication.</caption>
+<thead>
+<tr class="header">
+<th align="center">Method(<span class="math inline">\(\log\)</span>)</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center"><strong>3</strong></th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Laplace</td>
+<td align="center">-3007</td>
+<td align="center">-2535</td>
+<td align="center"><strong>-2223</strong></td>
+<td align="center">-2257</td>
+<td align="center">-2285</td>
+<td align="center">-2310</td>
+<td align="center">-2329</td>
+</tr>
+<tr class="even">
+<td align="center">DIC</td>
+<td align="center">84300</td>
+<td align="center">17779</td>
+<td align="center"><strong>7302</strong></td>
+<td align="center">7317</td>
+<td align="center">7325</td>
+<td align="center">7363</td>
+<td align="center">7405</td>
+</tr>
+<tr class="odd">
+<td align="center">GD</td>
+<td align="center">-3062</td>
+<td align="center">-2631</td>
+<td align="center"><strong>-2347</strong></td>
+<td align="center">-2397</td>
+<td align="center">-2436</td>
+<td align="center">-2470</td>
+<td align="center">-2495</td>
+</tr>
+<tr class="even">
+<td align="center">MSE</td>
+<td align="center">1.032</td>
+<td align="center">0.186</td>
+<td align="center"><strong>0.0120</strong></td>
+<td align="center">0.014</td>
+<td align="center">0.0170</td>
+<td align="center">0.0192</td>
+<td align="center">0.0217</td>
+</tr>
+</tbody>
+</table>
+<p>The MSE in the table is defined as follows:
+<span class="math display">\[
+MSE = \frac{trace\{(\hat {\bf C}-{\bf C})^{{\top}}(\hat {\bf C}-{\bf C})\}}{pq}.
+\]</span>
+MSE indicates the goodness of fit in the reduced rank regression model. We can observe that the MSE is minimized when the rank is 3. This demonstrates that parameter estimation is good enough. For the Laplace, DIC and GD method, in this case, all of them select the true rank. Given rank<span class="math inline">\(({\bf C})=3\)</span>, the estimated <span class="math inline">\({\bf C}\)</span> is as follows:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">1.07</td>
+<td align="center">0.17</td>
+<td align="center">0.01</td>
+<td align="center">2.34</td>
+<td align="center">-0.89</td>
+<td align="center">-0.12</td>
+<td align="center">-0.11</td>
+<td align="center">-0.08</td>
+<td align="center">-0.07</td>
+<td align="center">0.03</td>
+<td align="center">1.26</td>
+<td align="center">-1.10</td>
+</tr>
+<tr class="even">
+<td align="center">-0.02</td>
+<td align="center">1.00</td>
+<td align="center">0.04</td>
+<td align="center">-0.14</td>
+<td align="center">-0.17</td>
+<td align="center">-2.83</td>
+<td align="center">2.10</td>
+<td align="center">0.10</td>
+<td align="center">0.03</td>
+<td align="center">0.03</td>
+<td align="center">-1.04</td>
+<td align="center">3.17</td>
+</tr>
+<tr class="odd">
+<td align="center">0.13</td>
+<td align="center">-0.03</td>
+<td align="center">0.99</td>
+<td align="center">0.18</td>
+<td align="center">-0.02</td>
+<td align="center">0.08</td>
+<td align="center">0.00</td>
+<td align="center">3.06</td>
+<td align="center">-2.85</td>
+<td align="center">4.03</td>
+<td align="center">2.10</td>
+<td align="center">2.06</td>
+</tr>
+<tr class="even">
+<td align="center">0.94</td>
+<td align="center">0.14</td>
+<td align="center">0.03</td>
+<td align="center">2.05</td>
+<td align="center">-0.78</td>
+<td align="center">-0.08</td>
+<td align="center">-0.11</td>
+<td align="center">-0.03</td>
+<td align="center">-0.10</td>
+<td align="center">0.07</td>
+<td align="center">1.13</td>
+<td align="center">-0.95</td>
+</tr>
+<tr class="odd">
+<td align="center">0.04</td>
+<td align="center">0.99</td>
+<td align="center">0.04</td>
+<td align="center">-0.00</td>
+<td align="center">-0.21</td>
+<td align="center">-2.79</td>
+<td align="center">2.05</td>
+<td align="center">0.10</td>
+<td align="center">0.01</td>
+<td align="center">0.04</td>
+<td align="center">-0.95</td>
+<td align="center">3.05</td>
+</tr>
+<tr class="even">
+<td align="center">0.12</td>
+<td align="center">1.05</td>
+<td align="center">0.00</td>
+<td align="center">0.18</td>
+<td align="center">-0.29</td>
+<td align="center">-2.93</td>
+<td align="center">2.14</td>
+<td align="center">-0.02</td>
+<td align="center">0.12</td>
+<td align="center">-0.12</td>
+<td align="center">-0.98</td>
+<td align="center">3.03</td>
+</tr>
+<tr class="odd">
+<td align="center">0.08</td>
+<td align="center">-0.01</td>
+<td align="center">0.98</td>
+<td align="center">0.08</td>
+<td align="center">0.01</td>
+<td align="center">0.03</td>
+<td align="center">0.04</td>
+<td align="center">3.03</td>
+<td align="center">-2.81</td>
+<td align="center">3.98</td>
+<td align="center">2.01</td>
+<td align="center">2.14</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, when selected rank is larger than 3, the MSE is not worse than I expect. In
+other words, the model based on larger model (larger rank in <span class="math inline">\({\bf C}\)</span>), the overfiteed models still have a good
+estimation for the <span class="math inline">\({\bf C}\)</span>. The values of DIC, Laplace and GD are not far away from the value at true rank.
+This is very reasonable for overfitted model. But when selected rank smaller than true rank,
+the MSE increase significantly, and the corresponding values of DIC, Laplace and GD are far away from the value at true rank. This means the model miss some important variables. The analysis is based on one replication.</p>
+<p>In Table <a href="bayesian-reduced-rank-regression.html#tab:table2">2.2</a>, the result is based on 1000 replication. I want to see the perfermance of methods for model selection. In
+Table <a href="bayesian-reduced-rank-regression.html#tab:table2">2.2</a>, Laplace and GD always select true rank, however, the DIC tends to select larger model, because the average of
+selected rank in DIC is about 3.5, whereas, that of Laplace and GD are 3. Besides, for the successful probability of selecting true
+rank, the Laplace and GD, of course, is 100%, but is 61.7% for DIC. This makes sense because Laplace and GD are approximated and exact calculation for marginal likehihood, respectively. They work well in model fitting. The DIC is analogous to AIC, which tends to select larger model and better for short-term prediction.</p>
+<table>
+<caption><span id="tab:table2">Table 2.2: </span> Comparison among Laplace, DIC, GD Based on 1000 Replication.</caption>
+<thead>
+<tr class="header">
+<th align="center">Method</th>
+<th align="center">Mean of Selected rank</th>
+<th align="center">Selection Probabiliy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Laplace</td>
+<td align="center">3</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">DIC</td>
+<td align="center">3.525</td>
+<td align="center">0.617</td>
+</tr>
+<tr class="odd">
+<td align="center">GD</td>
+<td align="center">3</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="r-code-for-bayeian-reduced-rank-regression-with-dic-used-in-the-simulation-study" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> R Code for Bayeian reduced rank regression with DIC used in the simulation study</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(mvtnorm)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(invgamma)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">## Data &amp; Model##</span></a>
+<a class="sourceLine" id="cb1-5" title="5">row1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6">row2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1-7" title="7">row3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="op">-</span><span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8">C &lt;-<span class="st"> </span><span class="kw">rbind</span>(row1,row2,row3,row1,row2,row2,row3)</a>
+<a class="sourceLine" id="cb1-9" title="9">true.rank &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb1-10" title="10">p &lt;-<span class="st"> </span><span class="kw">dim</span>(C)[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb1-11" title="11">q &lt;-<span class="st"> </span><span class="kw">dim</span>(C)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb1-12" title="12">true.sig2 &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb1-13" title="13">true.SIGe &lt;-<span class="st"> </span><span class="kw">diag</span>(true.sig2,q)</a>
+<a class="sourceLine" id="cb1-14" title="14">n=<span class="dv">100</span></a>
+<a class="sourceLine" id="cb1-15" title="15">a=b=<span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-16" title="16">tau2=<span class="fl">1e-3</span></a>
+<a class="sourceLine" id="cb1-17" title="17">MC.size=<span class="dv">5000</span></a>
+<a class="sourceLine" id="cb1-18" title="18">burn_in=<span class="dv">3000</span></a>
+<a class="sourceLine" id="cb1-19" title="19">reptn &lt;-<span class="st"> </span><span class="dv">125</span></a>
+<a class="sourceLine" id="cb1-20" title="20">error &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="ot">NA</span>,<span class="dt">dim =</span> <span class="kw">c</span>(reptn,p))</a>
+<a class="sourceLine" id="cb1-21" title="21">DIC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="ot">NA</span>,<span class="dt">dim =</span> <span class="kw">c</span>(reptn,p))</a>
+<a class="sourceLine" id="cb1-22" title="22">TPR.DIC &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,reptn)</a>
+<a class="sourceLine" id="cb1-23" title="23">TPR.error &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,reptn)</a>
+<a class="sourceLine" id="cb1-24" title="24">hat.rank &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,reptn)</a>
+<a class="sourceLine" id="cb1-25" title="25">v=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-26" title="26"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>reptn) {</a>
+<a class="sourceLine" id="cb1-27" title="27">  t1=<span class="kw">Sys.time</span>()</a>
+<a class="sourceLine" id="cb1-28" title="28">  <span class="kw">set.seed</span>(<span class="dv">2144</span><span class="op">+</span>i<span class="op">+</span><span class="dv">125</span><span class="op">*</span>v)</a>
+<a class="sourceLine" id="cb1-29" title="29">  X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p,<span class="dv">0</span>,<span class="dv">1</span>),n,p)</a>
+<a class="sourceLine" id="cb1-30" title="30">  E &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(n, <span class="kw">rep</span>(<span class="dv">0</span>,q), true.SIGe, <span class="dt">method=</span><span class="st">&quot;chol&quot;</span>) </a>
+<a class="sourceLine" id="cb1-31" title="31">  Y=X<span class="op">%*%</span>C<span class="op">+</span>E</a>
+<a class="sourceLine" id="cb1-32" title="32">  <span class="co">## Reduced Rank Regression model ##</span></a>
+<a class="sourceLine" id="cb1-33" title="33">  <span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
+<a class="sourceLine" id="cb1-34" title="34">    Hat.A &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="ot">NA</span>,<span class="dt">dim =</span> <span class="kw">c</span>(p,r,MC.size))</a>
+<a class="sourceLine" id="cb1-35" title="35">    Hat.B &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="ot">NA</span>,<span class="dt">dim =</span> <span class="kw">c</span>(q,r,MC.size))</a>
+<a class="sourceLine" id="cb1-36" title="36">    Hat.C &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="ot">NA</span>,<span class="dt">dim =</span> <span class="kw">c</span>(p,q,MC.size))</a>
+<a class="sourceLine" id="cb1-37" title="37">    Hat.sig2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,MC.size)</a>
+<a class="sourceLine" id="cb1-38" title="38">    <span class="co"># initial values</span></a>
+<a class="sourceLine" id="cb1-39" title="39">    hat.C &lt;-<span class="st"> </span><span class="kw">coef</span>(<span class="kw">lm</span>(Y<span class="op">~</span>X<span class="dv">-1</span>))</a>
+<a class="sourceLine" id="cb1-40" title="40">    <span class="cf">if</span> (r<span class="op">==</span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb1-41" title="41">      hat.B &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(hat.C[<span class="dv">1</span><span class="op">:</span>r,])</a>
+<a class="sourceLine" id="cb1-42" title="42">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb1-43" title="43">      hat.B &lt;-<span class="st"> </span><span class="kw">t</span>(hat.C[<span class="dv">1</span><span class="op">:</span>r,])</a>
+<a class="sourceLine" id="cb1-44" title="44">    }</a>
+<a class="sourceLine" id="cb1-45" title="45">    <span class="cf">if</span> (r<span class="op">==</span>p) {</a>
+<a class="sourceLine" id="cb1-46" title="46">      hat.A &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span>,r)</a>
+<a class="sourceLine" id="cb1-47" title="47">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb1-48" title="48">      hat.A &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">diag</span>(<span class="dv">1</span>,r),hat.C[(r<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>p,]<span class="op">%*%</span>hat.B<span class="op">%*%</span><span class="kw">solve</span>(<span class="kw">crossprod</span>(hat.B)))</a>
+<a class="sourceLine" id="cb1-49" title="49">    }</a>
+<a class="sourceLine" id="cb1-50" title="50">    </a>
+<a class="sourceLine" id="cb1-51" title="51">    hat.sig2 &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">diag</span>(<span class="kw">tcrossprod</span>(Y<span class="op">-</span>X<span class="op">%*%</span>hat.A<span class="op">%*%</span><span class="kw">t</span>(hat.B))))  <span class="co">#true.sig2</span></a>
+<a class="sourceLine" id="cb1-52" title="52">    <span class="co">## MCMC ##</span></a>
+<a class="sourceLine" id="cb1-53" title="53">    <span class="cf">for</span> (jin <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>MC.size) {</a>
+<a class="sourceLine" id="cb1-54" title="54">      <span class="co"># Sampling A</span></a>
+<a class="sourceLine" id="cb1-55" title="55">      <span class="cf">if</span> (r<span class="op">==</span>p){</a>
+<a class="sourceLine" id="cb1-56" title="56">        Hat.A[,,jin] &lt;-<span class="st"> </span>hat.A</a>
+<a class="sourceLine" id="cb1-57" title="57">      } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb1-58" title="58">        <span class="cf">for</span>(j <span class="cf">in</span> (r<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>p) {</a>
+<a class="sourceLine" id="cb1-59" title="59">          Sig.A_j &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(hat.B)<span class="op">*</span><span class="kw">as.numeric</span>(<span class="kw">crossprod</span>(X[,j]))<span class="op">/</span>hat.sig2<span class="op">+</span><span class="kw">diag</span>(tau2,r))</a>
+<a class="sourceLine" id="cb1-60" title="60">          mu.A_j &lt;-<span class="st"> </span>Sig.A_j<span class="op">%*%</span><span class="kw">t</span>(hat.B)<span class="op">%*%</span><span class="kw">t</span>(Y<span class="op">-</span>X[,<span class="op">-</span>j]<span class="op">%*%</span>hat.A[<span class="op">-</span>j,]<span class="op">%*%</span><span class="kw">t</span>(hat.B))<span class="op">%*%</span>X[,j]<span class="op">/</span>hat.sig2</a>
+<a class="sourceLine" id="cb1-61" title="61">          hat.a_j &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">mean =</span> mu.A_j,<span class="dt">sigma =</span> Sig.A_j)</a>
+<a class="sourceLine" id="cb1-62" title="62">          hat.A[j,] &lt;-<span class="st"> </span>hat.a_j</a>
+<a class="sourceLine" id="cb1-63" title="63">        }</a>
+<a class="sourceLine" id="cb1-64" title="64">        Hat.A[,,jin] &lt;-<span class="st"> </span>hat.A</a>
+<a class="sourceLine" id="cb1-65" title="65">      }</a>
+<a class="sourceLine" id="cb1-66" title="66">      <span class="co"># Sampling B</span></a>
+<a class="sourceLine" id="cb1-67" title="67">      Sig.B_l &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X<span class="op">%*%</span>hat.A)<span class="op">/</span>hat.sig2<span class="op">+</span><span class="kw">diag</span>(tau2,r))</a>
+<a class="sourceLine" id="cb1-68" title="68">      <span class="cf">for</span>(l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>q) {</a>
+<a class="sourceLine" id="cb1-69" title="69">        mu.B_l &lt;-<span class="st"> </span>Sig.B_l<span class="op">%*%</span><span class="kw">t</span>(X<span class="op">%*%</span>hat.A)<span class="op">%*%</span>Y[,l]<span class="op">/</span>hat.sig2</a>
+<a class="sourceLine" id="cb1-70" title="70">        hat.b_l &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">rmvnorm</span>(<span class="dt">n=</span><span class="dv">1</span>,<span class="dt">mean =</span> mu.B_l,<span class="dt">sigma =</span> Sig.B_l))</a>
+<a class="sourceLine" id="cb1-71" title="71">        hat.B[l,] &lt;-<span class="st"> </span><span class="kw">t</span>(hat.b_l)</a>
+<a class="sourceLine" id="cb1-72" title="72">      }</a>
+<a class="sourceLine" id="cb1-73" title="73">      Hat.B[,,jin] &lt;-<span class="st"> </span>hat.B</a>
+<a class="sourceLine" id="cb1-74" title="74">      Hat.C[,,jin] &lt;-<span class="st"> </span>hat.A<span class="op">%*%</span><span class="kw">t</span>(hat.B)</a>
+<a class="sourceLine" id="cb1-75" title="75">      <span class="co">#Sampling Sig2</span></a>
+<a class="sourceLine" id="cb1-76" title="76">      hat.sig2 &lt;-<span class="st"> </span><span class="kw">rinvgamma</span>(<span class="dt">n =</span> <span class="dv">1</span>,<span class="dt">shape =</span> (q<span class="op">*</span>n<span class="op">+</span>a)<span class="op">/</span><span class="dv">2</span>,<span class="dt">rate =</span> <span class="fl">0.5</span><span class="op">*</span>(b<span class="op">+</span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">tcrossprod</span>(Y<span class="op">-</span>X<span class="op">%*%</span>hat.A<span class="op">%*%</span><span class="kw">t</span>(hat.B))))))</a>
+<a class="sourceLine" id="cb1-77" title="77">      Hat.sig2[jin] &lt;-<span class="st"> </span>hat.sig2</a>
+<a class="sourceLine" id="cb1-78" title="78">      <span class="co">#print(jin)</span></a>
+<a class="sourceLine" id="cb1-79" title="79">    }</a>
+<a class="sourceLine" id="cb1-80" title="80">    hat.C &lt;-<span class="st"> </span><span class="kw">apply</span>(Hat.C[,,<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span>burn_in)],<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),mean)</a>
+<a class="sourceLine" id="cb1-81" title="81">    hat.sig2 &lt;-<span class="st"> </span><span class="kw">mean</span>(Hat.sig2[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span>burn_in)])</a>
+<a class="sourceLine" id="cb1-82" title="82">    <span class="co"># print(C)</span></a>
+<a class="sourceLine" id="cb1-83" title="83">    D.theta &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,MC.size<span class="op">-</span>burn_in)</a>
+<a class="sourceLine" id="cb1-84" title="84">    j=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-85" title="85">    <span class="cf">for</span> (jin <span class="cf">in</span> (burn_in<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>MC.size) {</a>
+<a class="sourceLine" id="cb1-86" title="86">      j=j<span class="op">+</span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-87" title="87">      D.theta[j] &lt;-<span class="st"> </span>n<span class="op">*</span>q<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Hat.sig2[jin])<span class="op">+</span>Hat.sig2[jin]<span class="op">*</span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">crossprod</span>(Y<span class="op">-</span>X<span class="op">%*%</span>Hat.C[,,jin])))</a>
+<a class="sourceLine" id="cb1-88" title="88">    }</a>
+<a class="sourceLine" id="cb1-89" title="89">    D.hat.theta &lt;-<span class="st"> </span>n<span class="op">*</span>q<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>hat.sig2)<span class="op">+</span>hat.sig2<span class="op">*</span><span class="kw">sum</span>(<span class="kw">diag</span>(<span class="kw">crossprod</span>(Y<span class="op">-</span>X<span class="op">%*%</span>hat.C)))</a>
+<a class="sourceLine" id="cb1-90" title="90">    DIC[i,r] &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">mean</span>(D.theta)<span class="op">-</span><span class="st"> </span>D.hat.theta</a>
+<a class="sourceLine" id="cb1-91" title="91">    error[i,r] &lt;-<span class="st"> </span><span class="kw">sum</span>((hat.C<span class="op">-</span>C)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(p<span class="op">*</span>q)</a>
+<a class="sourceLine" id="cb1-92" title="92">  }</a>
+<a class="sourceLine" id="cb1-93" title="93">  hat.rank[i] &lt;-<span class="st"> </span><span class="kw">which.min</span>(DIC[i,])</a>
+<a class="sourceLine" id="cb1-94" title="94">  TPR.DIC[i] &lt;-<span class="st"> </span>hat.rank[i]<span class="op">==</span>true.rank</a>
+<a class="sourceLine" id="cb1-95" title="95">  TPR.error[i] &lt;-<span class="st"> </span><span class="kw">which.min</span>(error[i,])<span class="op">==</span>true.rank</a>
+<a class="sourceLine" id="cb1-96" title="96">  <span class="kw">print</span>(<span class="kw">c</span>(i,hat.rank[i]))</a>
+<a class="sourceLine" id="cb1-97" title="97">  <span class="kw">print</span>(<span class="kw">Sys.time</span>()<span class="op">-</span>t1)</a>
+<a class="sourceLine" id="cb1-98" title="98">}</a>
+<a class="sourceLine" id="cb1-99" title="99"></a>
+<a class="sourceLine" id="cb1-100" title="100"><span class="kw">data.frame</span>(<span class="dt">hat.rank=</span><span class="kw">mean</span>(hat.rank),<span class="dt">TPR.DIC=</span><span class="kw">mean</span>(TPR.DIC),<span class="dt">TPR.ERR=</span><span class="kw">mean</span>(TPR.error))</a>
+<a class="sourceLine" id="cb1-101" title="101"><span class="kw">save</span>(<span class="dt">list =</span> <span class="kw">ls</span>(), <span class="dt">file =</span> <span class="kw">paste0</span>(<span class="st">&#39;DIC-&#39;</span>,v,<span class="st">&#39;.RData&#39;</span>))</a></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["RRR.pdf", "RRR.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1570067710605.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B3761E6C",
+    "lastKnownWriteTime" : 1530804189,
+    "last_content_update" : 1530804189,
+    "path" : "~/statistics/stat course/950 Bayesian Model Selection(18 Spring)/Course Project/DIC.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "102,0",
+        "scrollLine" : "53"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
